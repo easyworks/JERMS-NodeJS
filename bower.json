@@ -1,0 +1,33 @@
+{
+    "name": "JERMS-NodeJS",
+    "homepage": "https://github.com/easyworks/JERMS-NodeJS",
+    "authors": [
+        "easyworks <80107919@qq.com>"
+    ],
+    "description": "",
+    "main": "",
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "angular": "^1.5.5",
+        "bootstrap": "^3.3.6",
+        "angular-ui-router": "ui-router#^0.2.18",
+        "jquery": "^2.2.3",
+        "bootbox.js": "bootbox#^4.4.0",
+        "art-dialog": "^6.0.4",
+        "bootstrap-datepicker": "^1.6.0",
+        "respond": "^1.4.2",
+        "html5shiv": "^3.7.3",
+        "uploadify": "^3.2.1",
+        "angularUtils-pagination": "angular-utils-pagination#^0.11.1",
+        "angular-resource": "^1.5.5",
+        "jquery-validation": "^1.15.0",
+        "jquery-validation-bootstrap-tooltip": "^0.10.1"
+    }
+}
