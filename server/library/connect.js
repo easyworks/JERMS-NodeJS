@@ -7,6 +7,8 @@
  * @date    2016-05-25
  */
 
+"use strict";
+
 var vhost = function( hostname , server ) {
 
     if( !hostname ) throw new Error( "vhost hostname required" );

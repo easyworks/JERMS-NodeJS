@@ -20,6 +20,7 @@ var sequelize = new Sequelize( config.connectDB , {
 
 sequelize
     .transaction( function( t ) {
+        //noinspection JSUnresolvedFunction,JSUnusedLocalSymbols
         return new Sequelize
             .Promise( function( resolved , rejected ) {
                 return resolved();
@@ -34,14 +35,16 @@ sequelize
                     .then( function() {
                         // addComments();
                         // createMockData();
-                    } );
+                    } )
+                ;
             } );
     } )
     .then( function() {
         console.log( "> Sequelize sync database successful" );
     } )
-    .catch( function( err ) {
-        console.log( err );
+    .catch( function( error ) {
+
+        console.log( error );
         console.log( "[debug] error happens in construct db." )
     } )
 ;

@@ -1,6 +1,11 @@
+public/bower_components/
 node_modules/
-client/bower_components/
-.idea/
-dump.rdb
-npm-debug.log
+*.log
+nohup.out
 *.iml
+_document/
+dump.rdb
+.idea/
+.DS_Store
+*/.DS_Store
+
