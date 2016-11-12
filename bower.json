@@ -25,7 +25,6 @@
         "respond": "^1.4.2",
         "html5shiv": "^3.7.3",
         "uploadify": "^3.2.1",
-        "angularUtils-pagination": "^0.11.1",
         "angular-resource": "^1.5.5"
     }
 }

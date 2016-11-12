@@ -4,16 +4,18 @@
  * 
  * @fileoverview config.js
  * @author Javask
- * @version 3.0
+ * @version 3.0.3
  */
 
+"use strict";
+
 $.extend( javask.config , {
-	debug   : true,
-	domain  : "",
-	rootPath: "",
-	libPath : "",
-	skinPath: "",
-	skin    : "default"
+	 "debug"   : true
+	,"domain"  : ""
+	,"rootPath": ""
+	,"libPath" : ""
+	,"skinPath": ""
+	,"skin"    : "default"
 } );
 
 /*--------------------------------------------------------------------------*/
@@ -21,14 +23,21 @@ $.extend( javask.config , {
  * 加载导入类
  */
 ( function() {
-	var js         = $( "script" ),
-		urlVersion = "engine-" + javask.version + ".js",
-		engine,
-		enginePath = "";
+
+	var  js         = $( "script" )
+		,urlVersion = "engine-" + javask.version + ".js"
+		,engine
+		,enginePath = ""
+    ;
+
 	js.each( function( index , script ) {
+
 		script = $( script );
+
 		var enginePathLength = 0;
+
 		if( !javask.object.isUndefined( script.attr( "src" ) ) && javask.string.include( script.attr( "src" ) , urlVersion ) ) {
+
 			engine           = script;
 			enginePath       = script.attr( "src" ).replace( urlVersion , "" );
 			enginePathLength = enginePath.length;
@@ -37,12 +46,18 @@ $.extend( javask.config , {
 			// alert( enginePath );
 		}
 	} );
-	if( !javask.object.isUndefined( engine ) ) {
-		var text = javask.string.trim( engine.html() ),
-		// var text    = javask.string.trim( engine.text() ),
-			pattern = /\s*import\s+([a-zA-Z0-9\.]+)/g,
-			m       = text.replace( pattern , "$1" ).split( ";" ),
-			path , id;
+
+	//noinspection JSUnusedAssignment
+    if( !javask.object.isUndefined( engine ) ) {
+
+		//noinspection JSUnusedAssignment
+        var  text = javask.string.trim( engine.html() )
+		//  ,text    = javask.string.trim( engine.text() )
+			,pattern = /\s*import\s+([a-zA-Z0-9\.]+)/g
+			,m       = text.replace( pattern , "$1" ).split( ";" )
+			,path
+            ,id
+        ;
 		
 		// 删除数据最后一个元素
 		m.pop();

@@ -30,9 +30,12 @@
  * @version 3.0
  */
 
+"use strict";
+
+
 $.extend( javask.plug , {
 	
-	Map: function() {
+	"Map": function() {
 		
 		/**
 		 * 存放键的数组(遍历用到)
@@ -46,10 +49,8 @@ $.extend( javask.plug , {
 		/**
 		 * 放入一个键值对
 		 * 
-		 * @param {@link String}
-		 *            key
-		 * @param {@link Object}
-		 *            value
+		 * @param key
+		 * @param value
 		 */
 		this.put = function( key , value ) {
 			
@@ -58,12 +59,11 @@ $.extend( javask.plug , {
 		};
 		
 		/**
-		 * 获取某键对应的值<br/>
+		 * 获取某键对应的值
 		 * 如果 value 不存在,则返回 key
 		 * 
-		 * @param {@link String}
-		 *            key
-		 * @return {@link Object} value
+		 * @param key
+		 * @return value
 		 */
 		this.get = function( key ) {
 			
@@ -73,12 +73,12 @@ $.extend( javask.plug , {
 		/**
 		 * 删除一个键值对
 		 * 
-		 * @param {@link String}
-		 *            key
+		 * @param key
 		 */
 		this.remove = function( key ) {
 			
 			for( var i = 0 , length = this.keys.length; i < length; i++ ) {
+
 				key == this.keys[ i ] && this.keys.splice( i , 1 );
 			}
 			
@@ -88,8 +88,7 @@ $.extend( javask.plug , {
 		/**
 		 * 遍历 map,执行处理函数
 		 * 
-		 * @param {@link Function}
-		 *            回调函数 function( key , value , index ) {...}
+		 * @param fn 回调函数 function( key , value , index ) {...}
 		 */
 		this.each = function( fn ) {
 			
@@ -119,10 +118,11 @@ $.extend( javask.plug , {
 			}
 		};
 		
-		/**
+		//noinspection JSUnusedGlobalSymbols
+        /**
 		 * 获取键值数组(类似Java的entrySet())
 		 * 
-		 * @return 键值对象{key,value}的数组
+		 * @return Array{key,value}的数组
 		 */
 		this.entrySet = function() {
 			
@@ -132,39 +132,39 @@ $.extend( javask.plug , {
 				
 				var key = this.keys[ index ];
 				entrys.push( {
-					key: key ,
-					value: this.data[ key ]
+					 "key"  : key
+					,"value": this.data[ key ]
 				} );
 			}
 			
 			return entrys;
 		};
 		
-		/**
-		 * 判断 map 是否为空
-		 * 
-		 * @return {@link Boolean}
-		 */
+		//noinspection JSUnusedGlobalSymbols
+        /**
+         * 判断 map 是否为空
+         *
+         * @returns {boolean}
+         */
 		this.isEmpty = function() {
 			
 			return this.keys.length == 0;
 		};
-		
-		/**
-		 * 获取键值对数量
-		 * 
-		 * @return {@link Integer}
-		 */
+
+        /**
+         * 获取键值对数量
+         *
+         * @returns {Array.length|*}
+         */
 		this.size = function() {
 			
 			return this.keys.length;
 		};
-		
-		/**
-		 * 重写toString
-		 * 
-		 * @return {@link String}
-		 */
+
+        /**
+         *
+         * @returns {string}
+         */
 		this.toString = function() {
 			
 			var str = [];
@@ -197,64 +197,67 @@ $.extend( javask.plug , {
 			this.keys = [];
 			this.data = {};
 		};
-		
-		/**
-		 * 判断 map 中是否包含有指定 key 的元素
-		 * 
-		 * @param {@link String} key
-		 * @return {@link Boolean}
-		 */
+
+        //noinspection JSUnusedGlobalSymbols
+        /**
+         * 判断 map 中是否包含有指定 key 的元素
+         *
+         * @param key
+         * @returns {boolean}
+         */
 		this.containsKey = function( key ) {
 			
 			var value = this.data[ key ];
 			
 			return value == null;
 		};
-		
-		/**
-		 * 判断 map 中是否包含有指定 value 的元素
-		 * 
-		 * @param {@link Object}
-		 *            value
-		 * @return {@link Boolean}
-		 */
+
+        //noinspection JSUnusedGlobalSymbols
+        /**
+         * 判断 map 中是否包含有指定 value 的元素
+         *
+         * @param value
+         * @returns {boolean}
+         */
 		this.containsValue = function( value ) {
 			
 			var contains = false;
 			
-			this.each( function( key , v , index ) {
+			this.each( function( key , v ) {
 				
 				if( v == value ) {
 					contains = true;
 					return false;
 				}
-			} )
+			} );
 
 			return contains;
 		};
-		
-		/**
-		 * 获取 map 中所有 value 数组
-		 * 
-		 * @return {@link Array}
-		 */
+
+        //noinspection JSUnusedGlobalSymbols
+        /**
+         * 获取 map 中所有 value 数组
+         *
+         * @returns {Array}
+         */
 		this.valueList = function() {
 			
 			var values = [];
 			
-			this.each( function( key , value , index ) {
+			this.each( function( key , value ) {
 				
 				values.push( value );
 			} );
 			
 			return values;
 		};
-		
-		/**
-		 * 获取 map 中所有 key 数组
-		 * 
-		 * @return {@link Array}
-		 */
+
+        //noinspection JSUnusedGlobalSymbols
+        /**
+         * 获取 map 中所有 key 数组
+         *
+         * @returns {Array}
+         */
 		this.keyList = function() {
 			
 			return this.keys;

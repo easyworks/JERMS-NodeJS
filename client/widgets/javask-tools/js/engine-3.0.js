@@ -4,31 +4,27 @@
  * 
  * @fileoverview engine.js
  * @author Javask
- * @version 3.0.2
+ * @version 3.0.3
  *
  * @update
- * 	2014-11-12( v3.0.1 ):
- * 		1. 增加启用复制( $().disableSelection() )和禁用复制( $().enableSelection() )扩展
+ *  2014-11-12( v3.0.1 ):
+ * 	    1. 增加启用复制( $().disableSelection() )和禁用复制( $().enableSelection() )扩展
  *  2015-02-12( v3.0.2 ):
- * 		1. 优化日期格式验证( javask.string.isDate() )和电子邮件格式验证( javask.string.isEmail() )函数的验证逻辑
- * 		2. 增加IP格式验证( javask.string.isIP() )和手机号码格式验证( javask.string.isMobile() )函数
+ * 	    1. 优化日期格式验证( javask.string.isDate() )和电子邮件格式验证( javask.string.isEmail() )函数的验证逻辑
+ * 	    2. 增加IP格式验证( javask.string.isIP() )和手机号码格式验证( javask.string.isMobile() )函数
+ *  2016-11-12( v3.0.3 ):
+ *      1. 重新优化代码
  */
 
-// "use strict";
+"use strict";
 
-var _javask = {};
-if( $.type( javask ) != "undefined" ) {
-	/*
-	 * 如果 javask 不为 undefined
-	 */
+if( typeof javask != "undefined" ) {
 	// 将 javask 对象引用转存至 _javask
-	_javask = javask;
+	//noinspection JSUnusedGlobalSymbols
+    var _javask = javask;
 	// 清空 javask
 	javask  = {};
 }else {
-	/*
-	 * 如果 javask 为 undefined
-	 */
 	var javask = {};
 }
 
@@ -36,54 +32,54 @@ $.extend( javask , {
 	/**
 	 * 版本号
 	 */
-	 version       : "3.0.2"
+	 "version"       : "3.0.3"
 	/**
 	 * 浏览器相关命名空间
 	 */
-	,browser       : {}
+	,"browser"       : {}
 	/**
 	 * javask tools configuration namespace
 	 */
-	,config        : {}
+	,"config"        : {}
 	/**
 	 * javask tools 自定义 UI 命名空间
 	 */
-	,ui            : {}
+	,"ui"            : {}
 	/**
 	 * javask tools 插件命名空间
 	 */
-	,plug          : {}
+	,"plug"          : {}
 	/**
 	 * 动态加载(CSS,JS)
 	 */
-	,imports       : {}
-	,object        : {}
+	,"imports"       : {}
+	,"object"        : {}
 	/**
 	 * 全局静态变量
 	 */
-	,global        : {}
+	,"global"        : {}
 	/**
 	 * 字符串相关操作
 	 */
-	,string        : {}
+	,"string"        : {}
 	/**
 	 * 数学运算相关
 	 */
-	,math          : {}
+	,"math"          : {}
 	/**
 	 * HTML标签相关
 	 */
-	,tag           : {}
+	,"tag"           : {}
 	/**
 	 * URL相关
 	 */
-	,url           : {}
-	,ScriptFragment: "<script[^>]*>([\\S\\s]*?)<\/script>"
-	,JSONFilter    : /^\/\*-secure-([\s\S]*)\*\/\s*$/
-	,N             : $.noop
-	,K             : function( a ) {return a;}
-	,T             : function() {return true;}
-	,F             : function() {return false;}
+	,"url"           : {}
+	,"ScriptFragment": /<script[^>]*>([\\S\\s]*?)<\/script>/
+	,"JSONFilter"    : /^\/\*-secure-([\s\S]*)\*\/\s*$/
+	,"N"             : $.noop
+	,"K"             : function( a ) {return a;}
+	,"T"             : function() {return true;}
+	,"F"             : function() {return false;}
 } );
 
 /***************************************************************************************************************************************************/
@@ -99,36 +95,32 @@ $.fn.extend( {
 	 * @return Boolean
 	 * @call $().hasAttr( attrName );
 	 */
-	hasAttr: function( attrName ) {
+	"hasAttr": function( attrName ) {
 		
-		return !javask.object.isUndefined( this.attr( attrName ) );
+		return !!this.attr( attrName );
 	}
 	
 	/**
 	 * 元素是否被隐藏
-	 * 有多个元素时,只要有一个元素为隐藏状态,即返回 true
-	 * 
+	 *
 	 * @return Boolean
 	 * @call $().isHidden();
 	 */
-	,isHidden: function() {
+	,"isHidden": function() {
 		
-		var flag = false;
-		
-		// 遍历元素
-		this.each( function( index , element ) {
-			
-			element = $( element );
-			// 判断元素是否为隐藏状态
-			flag = element.css( "display" ) == "none";
-			// 如果元素为隐藏状态,直接退出循环
-			if( flag ) {
-				return false;
-			}
-		} );
-		
-		return flag;
+		return this.is( ":hidden" );
 	}
+
+    /**
+     * 判断元素是否为显示状态
+     *
+     * @return Boolean
+     * @call $().isVisible();
+     */
+    ,"isVisible": function() {
+
+        return this.is( ":visible" );
+    }
 	
 	/**
 	 * 判断一个元素是否存在
@@ -136,7 +128,7 @@ $.fn.extend( {
 	 * @return Boolean  返回true,说明元素存在,返回false,说明元素不存在
 	 * @call $().exist();
 	 */
-	,exist: function() {
+	,"exist": function() {
 		
 		return this.length > 0;
 	}
@@ -146,7 +138,7 @@ $.fn.extend( {
 	 * 
 	 * @call $().disableSelect();
 	 */
-	,disableSelect: function() {
+	,"disableSelect": function() {
 		if( javask.browser.ua.isIe ) {
 			// IE浏览器
 			this.bind( "selectstart dragstart copy" , javask.F );
@@ -169,7 +161,7 @@ $.fn.extend( {
 	 * 
 	 * @call $().enableSelect()
 	 */
-	,enableSelect: function() {
+	,"enableSelect": function() {
 		if( javask.browser.ua.isIe ) {
 			// IE浏览器
 			this.unbind( "selectstart dragstart copy" , javask.F );
@@ -185,14 +177,14 @@ $.fn.extend( {
 		// 解除绑定屏蔽事件
 		this.unbind( "keydown" , javask.browser.screenCtrl );
 		return this;
-	},
+	}
 	
 	/**
 	 * 禁止复制
 	 * 
 	 * @call $().disableSelection();
 	 */
-	disableSelection: ( function() {
+	,"disableSelection": ( function() {
 		var eventType = "onselectstart" in document.createElement( "div" )
 						? "selectstart"
 						: "mousedown";
@@ -202,14 +194,14 @@ $.fn.extend( {
 				event.preventDefault();
 			} );
 		};
-	} )(),
+	} )()
 	
 	/**
 	 * 启用复制
 	 * 
 	 * @call $().enableSelection()
 	 */
-	enableSelection: function() {
+	,"enableSelection": function() {
 		return this.unbind( ".javask-disableSelection" );
 	}
 	
@@ -229,9 +221,10 @@ $.extend( javask.object , {
 	 * @return Boolean
 	 * @call javask.object.isElement( object );
 	 */
-	isElement: function( object ) {
+	"isElement": function( object ) {
 		
-		return object && object.nodeType == 1;
+		//return !!object && object.nodeType == 1;
+        return $.type( object ) == "object" && !!object.nodeType;
 	}
 	
 	/**
@@ -241,9 +234,10 @@ $.extend( javask.object , {
 	 * @return Boolean
 	 * @call javask.object.isNull( a );
 	 */
-	,isNull: function( a ) {
+	,"isNull": function( a ) {
 		
-		return typeof a == "object" && !a;
+		//return typeof a == "object" && !a;
+        return $.type( a ) == "null";
 	}
 	
 	/**
@@ -253,9 +247,9 @@ $.extend( javask.object , {
 	 * @return Boolean
 	 * @call javask.object.isString( object );
 	 */
-	,isString: function( object ) {
+	,"isString": function( object ) {
 		
-		return typeof object == "string";
+		return $.type( object ) == "string";
 	}
 	
 	/**
@@ -265,9 +259,9 @@ $.extend( javask.object , {
 	 * @return Boolean
 	 * @call javask.object.isNumber( object );
 	 */
-	,isNumber: function( object ) {
+	,"isNumber": function( object ) {
 		
-		return typeof object == "number";
+		return $.type( object ) == "number";
 	}
 	
 	/**
@@ -277,11 +271,58 @@ $.extend( javask.object , {
 	 * @return Boolean
 	 * @call javask.object.isUndefined( object );
 	 */
-	,isUndefined: function( object ) {
+	,"isUndefined": function( object ) {
 		
-		return typeof object == "undefined";
+		return $.type( object ) == "undefined";
 	}
-	
+
+    /**
+     * 判断是否为 function
+     *
+     * @param object 需要检测的对象
+     * @return Boolean
+     * @call javask.object.isFunction( object );
+     */
+    ,"isFunction": function( object ) {
+
+        return $.type( object ) == "function";
+    }
+
+    /**
+     * 判断是否为 array
+     *
+     * @param object 需要检测的对象
+     * @return Boolean
+     * @call javask.object.isArray( object );
+     */
+    ,"isArray": function( object ) {
+
+        return $.type( object ) == "array";
+    }
+
+    /**
+     * 判断是否为 date
+     *
+     * @param object 需要检测的对象
+     * @return Boolean
+     * @call javask.object.isDate( object );
+     */
+    ,"isDate": function( object ) {
+
+        return $.type( object ) == "date";
+    }
+
+    /**
+     * 判断是否为 regexp
+     *
+     * @param object 需要检测的对象
+     * @return Boolean
+     * @call javask.object.isRegexp( object );
+     */
+    ,"isRegexp": function( object ) {
+
+        return $.type( object ) == "regexp";
+    }
 } );
 /***************************************************************************************************************************************************/
 
@@ -294,7 +335,7 @@ $.extend( javask.browser , {
 	/**
 	 * jQuery.ua
 	 */
-	ua: $.ua()
+	"ua": $.ua()
 	
 	/**
 	 * 屏蔽键盘 Shift/Ctrl/Alt 键
@@ -302,13 +343,13 @@ $.extend( javask.browser , {
 	 * @param event Event对象
 	 * @call javask.browser.screenCtrl();
 	 */
-	,screenCtrl: function( event ) {
+	,"screenCtrl": function( event ) {
 		
 		// 获得当前按下的键值
 		var code = event.which;
 		// 屏蔽 Shift/Ctrl/Alt 键
 		if( code == 16 || code == 17 || code == 18 ) {
-			return javask.F();
+			return false;
 		}
 	}
 	
@@ -318,27 +359,36 @@ $.extend( javask.browser , {
 	 * @param url 如果不指定,默认为页面当前地址
 	 * @call javask.browser.setDefault();
 	 */
-	,setDefault: function( url ) {
+	,"setDefault": function( url ) {
 		
 		url = url || javask.url.get();
 
-		if( document.all ) {
-			document.body.style.behavior = "url(#default#homepage)";
-			document.body.setHomePage( url );
-		}else if( window.sidebar ) {
-			if( window.netscape ) {
-				try {
-					netscape.security.PrivilegeManager.enablePrivilege( "UniversalXPConnect" );
-				}catch( e ) {
-					alert( "该操作被浏览器拒绝，如果想启用该功能，请在地址栏内输入 about:config,然后将项 signed.applets.codebase_principal_support 值该为true" );
-				}
-			}
-			var prefs = Components.classes[ "@mozilla.org/preferences-service;1" ].getService( Components.interfaces.nsIPrefBranch );
-			prefs.setCharPref( "browser.startup.homepage" , url );
-		}else {
-			// alert( "浏览器不支持，请手动设置！" );
-		}
-		return false;
+        switch( true ) {
+            case !!document.all:
+                document.body.style.behavior = "url(#default#homepage)";
+                //noinspection JSUnresolvedFunction
+                document.body.setHomePage( url );
+                break;
+            case !!window.sidebar:
+                //noinspection JSUnresolvedVariable
+                if( !!window.netscape ) {
+                    try {
+                        //noinspection JSUnresolvedVariable,JSUnresolvedFunction
+                        netscape.security.PrivilegeManager.enablePrivilege( "UniversalXPConnect" );
+                    }catch( e ) {
+                        alert( "该操作被浏览器拒绝，如果想启用该功能，请在地址栏内输入 about:config,然后将项 signed.applets.codebase_principal_support 值该为true" );
+                    }
+                }
+                //noinspection JSUnresolvedVariable,JSUnresolvedFunction
+                var prefs = Components.classes[ "@mozilla.org/preferences-service;1" ].getService( Components.interfaces.nsIPrefBranch );
+                //noinspection JSUnresolvedFunction
+                prefs.setCharPref( "browser.startup.homepage" , url );
+                break;
+            default:
+                break;
+        }
+
+        return false;
 	}
 	
 	/**
@@ -348,13 +398,14 @@ $.extend( javask.browser , {
 	 * @param url   收藏地址
 	 * @call javask.browser.addBookMark( title , url );
 	 */
-	,addBookMark: function( title , url ) {
+	,"addBookMark": function( title , url ) {
 		
 		title = title || document.title;
 		url = url || javask.url.get();
 		
 		try {
-			window.external.addFavorite( url , title );
+			//noinspection JSUnresolvedFunction
+            window.external.addFavorite( url , title );
 		}catch( e ) {
 			try {
 				window.sidebar.addPanel( title , url , "" );
@@ -371,7 +422,7 @@ $.extend( javask.browser , {
 	 * 
 	 * @call javask.browser.clearError();
 	 */
-	,clearError: function() {
+	,"clearError": function() {
 		
 		$( window ).error( javask.T );
 	}
@@ -383,7 +434,7 @@ $.extend( javask.browser , {
 	 * @return Boolean
 	 * @call   javask.browser.cssSupports( prop );
 	 */
-	,cssSupports: ( function() {
+	,"cssSupports": ( function() {
 		var  div     = document.createElement( 'div' )
 			,vendors = "Khtml O Moz Webkit".split( " " )
 			,len     = vendors.length
@@ -409,21 +460,19 @@ $.extend( javask.browser , {
 	
 } );
 /***************************************************************************************************************************************************/
-
-/***************************************************************************************************************************************************/
 $.extend( javask.browser , {
 	
 	/**
 	 * 浏览器是否支持CSS属性
 	 */
-	css: {
-		transition: javask.browser.cssSupports( "transition" )
+	"css": {
+		"transition": javask.browser.cssSupports( "transition" )
 	}
 	
 	/**
 	 * 样式兼容
 	 */
-	,styleCompliant: {
+	,"styleCompliant": {
 		
 		/**
 		 * 去除tab和换行
@@ -431,7 +480,7 @@ $.extend( javask.browser , {
 		 * @param container 存放需要去除tab和换行符的代码的容器
 		 * @call  javask.browser.styleCompliant.splitTabAndLinkBreak( container );
 		 */
-		splitTabAndLinkBreak: function( container ) {
+		"splitTabAndLinkBreak": function( container ) {
 			
 			var html = "";
 			
@@ -450,7 +499,6 @@ $.extend( javask.browser , {
 				html = javask.browser.ua.isIe ? javask.string.replaceAll( html , "> <" , "><" ) : html;
 				
 				_container.html( html );
-				
 			} );
 		}
 	}
@@ -471,7 +519,7 @@ $.extend( javask.string , {
 	 * 		var str = "<div>aaa<li>cccc</li>bbb</div>";
 	 * 		javask.string.clearTags( str )  ==>  "aaaccccbbb";
 	 */
-	clearTags: function( str ) {
+	"clearTags": function( str ) {
 		
 		str = str || "";
 		return str.replace( /<\/?[^>]+>/gi , "" );
@@ -485,10 +533,11 @@ $.extend( javask.string , {
 	 * 		var str = '<script type="text/javascript">alert( 1 );</script>';
 	 * 		javask.string.clearScripts( str )  ==>  "alert( 1 );"
 	 */
-	,clearScripts: function( str ) {
+	,"clearScripts": function( str ) {
 		
 		str = str || "";
-		return str.replace( new RegExp( javask.ScriptFragment , "img" ) , "" );
+		//noinspection JSCheckFunctionSignatures
+        return str.replace( new RegExp( javask.ScriptFragment , "img" ) , "" );
 	}
 	
 	/**
@@ -501,7 +550,7 @@ $.extend( javask.string , {
 	 * 		var str = "<li>hello</li>";
 	 * 		javask.string.htmlReplace( str )  ==>  "&lt;li&gt;hello&lt;/li&gt;"
 	 */
-	,htmlReplace: function( str ) {
+	,"htmlReplace": function( str ) {
 		
 		str = str || "";
 		return str.replace( /&/g , "&amp;" )
@@ -525,7 +574,7 @@ $.extend( javask.string , {
 	 * 		var str = "&lt;li&gt;hello&lt;/li&gt;";
 	 * 		javask.string.htmlUnReplace( str )  ==>  "<li>hello</li>"
 	 */
-	,htmlUnReplace: function( str ) {
+	,"htmlUnReplace": function( str ) {
 		
 		str = str || "";
 		return str.replace( "<br />" , "\n" )
@@ -537,54 +586,7 @@ $.extend( javask.string , {
 						.replace( /&lt;/g , "<" )
 						.replace( /&amp;/g , "&" );
 	}
-	
-	/**
-	 * 过滤注入脚本
-	 * 
-	 * @param str 需要过滤脚本的字符串
-	 * @call javask.string.scriptReplace( str );
-	 */
-	,scriptReplace: function( str ) {
-		
-		str = str || "";
-		str = str.replace( /&#(\d+);?/g , function( a , b ) {
-						return String.fromCharCode( b );
-					} )
-					.replace( /&#x(\d+);?/ig , function( a , b ) {
-						return String.fromCharCode( parseInt( b , 16 ) );
-					} )
-					.replace( /(\Won)(\w+\s*=)/ig , "$1_$2" )
-					.replace( /(\Wexpres)(sion\()/ig , "$1_$2" )
-					.replace( /(\Wbehav)(ior\s*:)/ig , "$1_$2" )
-					.replace( /(obj)(ect)/ig , "$1_$2" )
-					.replace( /(scr)(ipt)/ig , "$1_$2" )
-					.replace( /(emb)(ed)/ig , "$1_$2" )
-					// .replace( /\<|\>|\,|\?|\[|\]|\{|\}|\~|\`|\!|\@|\#|\$|\%|\^|\*|\(|\)|\=|\+|\ /g , "" );
-					.replace( /\?|\{|}|`|@|\$|%|\^|\*|\+| |--/g , "" );
-					// .replace( /\n|\r/g , "<br/>" )
-					// .replace( /\t/g , "&nbsp;&nbsp;&nbsp;&nbsp;" );
-		return str;
-	}
-	
-	/**
-	 * 校验url地址合法性,一般用来判断get方式获得的url地址
-	 * 
-	 * @param url
-	 * @return Boolean
-	 * @call javask.string.validURL( url );
-	 */
-	,vaildURL: function( url ) {
-		
-		url = url || "";
-		
-		if( /javascript/ig.test( url ) ) {
-			return false;
-		}
 
-		return !(/^http/ig.test( url ) && !( /^http:\/\/([\w\.]+)\.(jframe.com|jframe.cn|jframe.net|jframe.org|jframe.com.cn)/ig.test( url ) ));
-
-	}
-	
 	/**
 	 * 过滤关键脚本 ( Location , onload , meta , iframe , cookie , craker , innerHTML , object , script , insert , update , delete , select )
 	 * 
@@ -592,11 +594,26 @@ $.extend( javask.string , {
 	 * @return String
 	 * @call javask.string.scriptSearch( str );
 	 */
-	,scriptSearch: function( str ) {
+	,"scriptSearch": function( str ) {
 		
 		str = str || "";
-		
-		var  regString = "Location|onload|meta|iframe|cookie|craker|innerHTML|object|script|insert|update|delete|select"
+
+		var  _string = [
+                 "location"
+                 ,"onload"
+                 ,"meta"
+                 ,"iframe"
+                 ,"cookie"
+                 ,"craker"
+                 ,"innerHTML"
+                 ,"object"
+                 ,"script"
+                 ,"insert"
+                 ,"update"
+                 ,"delete"
+                 ,"select"
+             ]
+            ,regString = _string.join( "|" )
 			,reg       = new RegExp( regString , "gi" )
 		;
 		return str.match( reg );
@@ -610,7 +627,7 @@ $.extend( javask.string , {
 	 * 		var a = "abcd";
 	 *		javask.string.toArray( a )   ==>  [ 'a' , 'b' , 'c' , 'd' ]
 	 */
-	,toArray: function( str ) {
+	,"toArray": function( str ) {
 		
 		str = str || "";
 		
@@ -625,7 +642,7 @@ $.extend( javask.string , {
 	 * @return Boolean
 	 * @call javask.string.include( str , pattern );
 	 */
-	,include: function( str , pattern ) {
+	,"include": function( str , pattern ) {
 		
 		str = str || "";
 		
@@ -640,7 +657,7 @@ $.extend( javask.string , {
 	 * @return Boolean
 	 * @call javask.string.startWith( str , pattern );
 	 */
-	,startWith: function( str , pattern ) {
+	,"startWith": function( str , pattern ) {
 		
 		str = str || "";
 		
@@ -655,7 +672,7 @@ $.extend( javask.string , {
 	 * @return Boolean
 	 * @call javask.string.endWith( str , pattern );
 	 */
-	,endWith: function( str , pattern ) {
+	,"endWith": function( str , pattern ) {
 		
 		str = str || "";
 		
@@ -671,7 +688,7 @@ $.extend( javask.string , {
 	 * @return Boolean
 	 * @call javask.string.empty( "" )   ==>  true
 	 */
-	,empty: function( str ) {
+	,"empty": function( str ) {
 		
 		return str == "";
 	}
@@ -683,7 +700,7 @@ $.extend( javask.string , {
 	 * @return Boolean
 	 * @call javask.string.blank( "" )   ==>  true
 	 */
-	,blank: function( str ) {
+	,"blank": function( str ) {
 		
 		str = str || "";
 		
@@ -693,7 +710,7 @@ $.extend( javask.string , {
 	/**
 	 * 将 jQuery 的 trim 函数转储
 	 */
-	,trims: $.trim
+	,"trims": $.trim
 	
 	/**
 	 * 去除多余空格
@@ -707,7 +724,7 @@ $.extend( javask.string , {
 	 * 		javask.string.trim( "      a    d    " , "left" );   ==>   "a    d    "
 	 * 		javask.string.trim( "      a    d    " , "right" );   ==>   "      a    d"
 	 */
-	,trim: function( str , flag ) {
+	,"trim": function( str , flag ) {
 		
 		flag = flag || "all";
 		var strs = "";
@@ -726,7 +743,7 @@ $.extend( javask.string , {
 	 * @param str 需要编码的字符
 	 * @call javask.escape( " " )   ==>  "%20"
 	 */
-	,escape: function( str ) {
+	,"escape": function( str ) {
 		return escape( str );
 	}
 	
@@ -736,7 +753,7 @@ $.extend( javask.string , {
 	 * @param str 需要反编码的字符
 	 * @call javask.escape( "%20" )   ==>  " "
 	 */
-	,unescape: function( str ) {
+	,"unescape": function( str ) {
 		return unescape( str );
 	}
 	
@@ -751,7 +768,7 @@ $.extend( javask.string , {
 	 * 		javask.string.s2n( a ) == javask.string.s2n( a , "px" )  ==>  33
 	 * 		javask.string.s2n( b , "em" )  ==> 3
 	 */
-	,s2n: function( str , unit ) {
+	,"s2n": function( str , unit ) {
 		
 		unit = unit || "px";
 		
@@ -768,7 +785,7 @@ $.extend( javask.string , {
 	 * @return String
 	 * @call javask.string.replaceAll( "aabbccbb" , "bb" , "&" );   ==>  [ "aa" , "cc" , "" ]  ==> "aa&cc&"
 	 */
-	,replaceAll: function( str , s , t ) {
+	,"replaceAll": function( str , s , t ) {
 		
 		str = str || "";
 		
@@ -782,7 +799,7 @@ $.extend( javask.string , {
 	 * @return Integer
 	 * @call javask.string.asclen( str );
 	 */
-	,asclen: function( str ) {
+	,"asclen": function( str ) {
 		
 		str = str || "";
 		
@@ -797,17 +814,17 @@ $.extend( javask.string , {
 	 * @return String
 	 * @call javask.string.cut( "你好吗" , 3 ) == "你好"
 	 */
-	,cut: function( str , len ) {
+	,"cut": function( str , len ) {
 		
 		str = str || "";
 
 		var  strlen = 0
 			,s = ""
-			,length = 0
+			,length
 		;
 
 		length = str.length;
-		for( var i = 0; i < str.length; i++ ) {
+		for( var i = 0; i < length; i++ ) {
 			
 			str.charCodeAt( i ) > 128 ? strlen += 2 : strlen++;
 			
@@ -837,7 +854,7 @@ $.extend( javask.string , {
 	 * @return {Boolean}
 	 * @call javask.string.isNumber( "" , flag );
 	 */
-	,isNumber: function( str , flag ) {
+	,"isNumber": function( str , flag ) {
 		
 		if( isNaN( str ) ) {
 			return false;
@@ -865,7 +882,7 @@ $.extend( javask.string , {
 	 * @return Boolean
 	 * @call javask.string.isNum( str )
 	 */
-	,isNum: function( str ) {
+	,"isNum": function( str ) {
 
 		str = str || "";
 
@@ -889,7 +906,7 @@ $.extend( javask.string , {
 	 * @return Boolean
 	 * @call javask.string.isDate( str )
 	 */
-	,isDate: function( str ) {
+	,"isDate": function( str ) {
 
 		// var datereg = /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
 		var datereg = /^((\d{2}(([02468][048])|([13579][26]))[\-\/\s]?((((0?[13578])|(1[02]))[\-\/\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\-\/\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\-\/\s]?((0?[1-9])|([1-2][0-9])))))|(\d{2}(([02468][1235679])|([13579][01345789]))[\-\/\s]?((((0?[13578])|(1[02]))[\-\/\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\-\/\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\-\/\s]?((0?[1-9])|(1[0-9])|(2[0-8]))))))(\s(((0?[0-9])|([1-2][0-3])):([0-5]?[0-9])((\s)|(:([0-5]?[0-9])))))?$/;
@@ -909,7 +926,7 @@ $.extend( javask.string , {
 	 * 			return javask.string.textInputKeyPress( e , true , true , "-" );
 	 * 		} );
 	 **/
-	,textInputKeyPress: function( e , isAllowLetter , isAllowNumber , allowOfCharacters ) {
+	,"textInputKeyPress": function( e , isAllowLetter , isAllowNumber , allowOfCharacters ) {
 		
 		var keyCode = e.keyCode > 0 ? e.keyCode : e.which,
 			i , argLength = arguments.length;
@@ -930,7 +947,7 @@ $.extend( javask.string , {
 		
 		if( argLength > 3) {
 			for( i = 3 ; i < argLength ; i++) {
-				if( arguments[ i ].length == 1 && arguments[ i ].charCodeAt() == keyCode ) {
+				if( arguments[ i ].length == 1 && arguments[ i ].charCodeAt( 0 ) == keyCode ) {
 					return true;
 				}
 			}
@@ -945,7 +962,7 @@ $.extend( javask.string , {
 	 * @return Boolean
 	 * @call javask.string.textEng( text );
 	 */
-	,textEng: function( text ) {
+	,"textEng": function( text ) {
 		
 		text = text || "";
 		
@@ -962,7 +979,7 @@ $.extend( javask.string , {
 	 * @return Boolean
 	 * @call javask.string.textEngNum( text );
 	 **/
-	,textEngNum: function( text ) {
+	,"textEngNum": function( text ) {
 		
 		text = text || "";
 		var engNumReg = /^[a-zA-Z0-9]+$/;
@@ -978,7 +995,7 @@ $.extend( javask.string , {
 	 * @return Boolean
 	 * @call javask.string.checkInt( text );
 	 */
-	,checkInt: function( text ) {
+	,"checkInt": function( text ) {
 		
 		text = text || "";
 		
@@ -994,7 +1011,7 @@ $.extend( javask.string , {
 	 * @return Boolean
 	 * @call javask.string.checkFloat( text );
 	 */
-	,checkFloat: function( text ) {
+	,"checkFloat": function( text ) {
 		
 		text = text || "";
 		
@@ -1010,7 +1027,7 @@ $.extend( javask.string , {
 	 * @return Boolean
 	 * @call javask.string.isEmail( str );
 	 */
-	,isEmail: function( str ) {
+	,"isEmail": function( str ) {
 		
 		str = str || "";
 		
@@ -1027,7 +1044,7 @@ $.extend( javask.string , {
 	 * @return Boolean
 	 * @call javask.string.isIP( ip );
 	 */
-	,isIP: function( ip ) {
+	,"isIP": function( ip ) {
 	
 		// String regex = "(25[0-5]|2[0-4]\\d|1\\d{2}|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d{2}|[1-9]?\\d)){3}";
 		var regex = /\b((?!\d\d\d)\d+|1\d\d|2[0-4]\d|25[0-5])\.((?!\d\d\d)\d+|1\d\d|2[0-4]\d|25[0-5])\.((?!\d\d\d)\d+|1\d\d|2[0-4]\d|25[0-5])\.((?!\d\d\d)\d+|1\d\d|2[0-4]\d|25[0-5])\b/;
@@ -1072,7 +1089,7 @@ $.extend( javask.string , {
 	 * @return Boolean
 	 * @call javask.string.isMobile( mobile );
 	 */
-	,isMobile: function( mobile ) {
+	,"isMobile": function( mobile ) {
 	
 		var regex = /^((13[0-9])|(14[7])|(15[^4,\D])|(18[0,5-9]))\d{8}$/;
 		
@@ -1085,20 +1102,17 @@ $.extend( javask.string , {
 	 * 
 	 * @param str 需要计算长度的字符串
 	 * @return Integer
+     * @call javask.string.lengthByByte( str );
 	 */
-	,lengthByByte: function( str ) {
+	,"lengthByByte": function( str ) {
 		
 		str = str || "";
 		
 		var len = 0 , length = str.length;
 		
 		for( var i = 0; i < length; i ++ ) {
-			
-			if( str.charCodeAt( i ) > 255 ) {
-				len += 2;
-			}else {
-				len ++;
-			}
+
+            str.charCodeAt( i ) > 255 ? len += 2 : len++;
 		}
 		return len;
 	}
@@ -1117,14 +1131,13 @@ $.extend( javask.math , {
 	 * @param num 随机数因子
 	 * @call javask.math.rand( num );
 	 */
-	rand: function( num ) {
+	"rand": function( num ) {
 
 		num =  Math.random();
 		var rnum = Math.round( Math.random() * 11 ) / num * 0.1;
 		
-		if( rnum == 0 ) {
-			rnum = javask.math.rand( num );
-		}
+		rnum == 0 && ( rnum = javask.math.rand( num ) );
+
 		return rnum;
 	}
 	
@@ -1135,15 +1148,40 @@ $.extend( javask.math , {
 	 * @return Integer
 	 * @call javask.math.randomInt( 10 );
 	 */
-	,randomInt: function( nMax ) {
+	,"randomInt": function( nMax ) {
 		
 		return parseInt( Math.random() * nMax );
 	}
-	
+
+    /**
+     * 生成指定位数的数字
+     *
+     * @param place
+     * @returns {String}
+     * @call javask.math.randomNumber( place );
+     */
+	,"randomNumber": function( place ) {
+
+        place = place || 4;
+
+        var random = Math.random();
+        var power = Math.pow( 10 , place );
+        random = Math.round( random * power );
+
+        // 补零
+        var zero = ( power + "" ).substring( 1 );
+
+        // 0 到 pow( 10 , place )-1
+        // 计算后的数字若小于pow( 10 , place - 1 ),则前面补零
+        random = ( zero + random ).substr( -place );
+
+        return random;
+    }
 } );
 /***************************************************************************************************************************************************/
 
 /***************************************************************************************************************************************************/
+//noinspection JSUnusedLocalSymbols
 /**
  * URL相关
  * javask.url
@@ -1155,7 +1193,7 @@ $.extend( javask.url , {
 	 * @return string
 	 * @call javask.url.get();
 	 */
-	get: function() {
+	"get": function() {
 		
 		return location.href;
 	}
@@ -1168,7 +1206,7 @@ $.extend( javask.url , {
 	 * @return String
 	 * @call javask.url.getParameter( parameter , url );
 	 */
-	,getParameter: function( parameter , url ) {
+	,"getParameter": function( parameter , url ) {
 		
 		url = url || javask.url.get();
 		
@@ -1182,7 +1220,7 @@ $.extend( javask.url , {
 	 * @return String
 	 * @call javask.url.getSuffix( url );
 	 */
-	,getSuffix: function( url ) {
+	,"getSuffix": function( url ) {
 		
 		url = url || javask.url.get();
 		
@@ -1198,7 +1236,7 @@ $.extend( javask.url , {
 	 * @return String
 	 * @call javask.url.getProtocol( url );
 	 */
-	,getProtocol: function( url ) {
+	,"getProtocol": function( url ) {
 		
 		url = url || javask.url.get();
 		
@@ -1212,21 +1250,13 @@ $.extend( javask.url , {
 	 * @return String
 	 * @call javask.url.getHost( url );
 	 */
-	,getHost: function( url ) {
+	,"getHost": function( url ) {
 		
 		url = url || javask.url.get();
 		
 		return javask.object.isNull( url.match( /:\/\/([a-zA-Z0-9.]+)/) ) ? "" : RegExp.$1;
 	}
 
-	,isValid: function( url ) {
-
-		// noinspection SillyAssignmentJS
-		url = url;
-
-		return true;
-	}
-	
 	/**
 	 * 判断是否为本机路径
 	 * 
@@ -1234,13 +1264,12 @@ $.extend( javask.url , {
 	 * @return Boolean
 	 * @call javask.url.isLocal( url );
 	 */
-	,isLocal: function( url ) {
+	,"isLocal": function( url ) {
 		
 		url = url || javask.url.get();
 		
 		return !javask.object.isNull( url.match( /(^file|^[A-Za-z]):/i) );
 	}
-	
 } );
 /***************************************************************************************************************************************************/
 
@@ -1261,7 +1290,7 @@ $.extend( {
 	 * 
 	 * @call $.blockPing();
 	 */
-	,blockPing: function() {
+	,"blockPing": function() {
 		if( top != self ) {
 			top.location = location;
 		}
@@ -1273,7 +1302,7 @@ $.extend( {
 	 * 
 	 * @call $.c();
 	 */
-	,c: function() {
+	,"c": function() {
 		window.opener = null;
 		window.close();
 	}
@@ -1286,7 +1315,7 @@ $.extend( {
 	 * @param nWidth 窗口宽度
 	 * @param nHeight 窗口高度
 	 */
-	,$open: function( strUrl , strName , nWidth , nHeight ) {
+	,"$open": function( strUrl , strName , nWidth , nHeight ) {
 		
 		var strFeature;
 		
@@ -1304,7 +1333,7 @@ $.extend( {
 	 * @param url 需要转向的 URL
 	 * @call $.go( url );
 	 */
-	,go: function( url ) {
+	,"go": function( url ) {
 		location.href = url;
 	}
 } );
@@ -1322,7 +1351,7 @@ $.extend( javask.imports , {
 	 * @param cssID <link /> 标签的ID
 	 * @call javask.imports.loadCSS( url , cssID );
 	 */
-	loadCSS: function( url , cssID ) {
+	"loadCSS": function( url , cssID ) {
 		
 		// cssID = cssID || ( "CSS_" + javask.math.rand() );
 		
@@ -1341,7 +1370,8 @@ $.extend( javask.imports , {
 		} );
 		
 		// 如果不存在相同CSS文件
-		if( javask.object.isUndefined( css ) ) {
+		//noinspection JSUnusedAssignment
+        if( javask.object.isUndefined( css ) ) {
 			
 			css = javask.tag.css().attr( {
 				"id"  : cssID,
@@ -1359,7 +1389,7 @@ $.extend( javask.imports , {
 	 * @param jsID <script />标签的ID
 	 * @call javask.imports.loadJS( url , jsID );
 	 */
-	,loadJS: function( url , jsID ) {
+	,"loadJS": function( url , jsID ) {
 		
 		// jsID = jsID || ( "JS_" + javask.math.rand() );
 		
@@ -1394,13 +1424,14 @@ $.extend( javask.imports , {
 	 * 		css: javask.imports._import( "css" , url , id );
 	 * 		js : javask.imports._import( "js" , url , id );
 	 */
-	,_import: function( flag , url , id ) {
+	,"_import": function( flag , url , id ) {
 		
 		if( javask.object.isNull( url ) || javask.string.blank( url ) ) {
 			return;
 		}
 		
-		id = id || flag.toUpperCase() + javask.math.rand().toString().replace( /\./ , "" );
+		//noinspection JSCheckFunctionSignatures
+        id = id || flag.toUpperCase() + javask.math.rand().toString().replace( /\./ , "" );
 
 		switch( flag ) {
 			case "js" : return javask.imports.loadJS( url , id );
@@ -1415,20 +1446,20 @@ $.extend( javask.imports , {
  * Tag
  */
 $.extend( javask.tag , {
-	 link   : function() {return $( "<link />" );}
-	,css    : function() {return javask.tag.link().attr( {rel: "stylesheet",type: "text/css"} );}
-	,script : function() {return $( "<script />" );}
-	,jscript: function() {return javask.tag.script().attr( {type: "text/javascript"} );}
-	,div    : function() {return $( "<div />" );}
-	,span   : function() {return $( "<span />" );}
-	,samp   : function() {return $( "<samp />" );}
-	,p      : function() {return $( "<p />" );}
-	,label  : function() {return $( "<label />" );}
-	,a      : function() {return $( "<a />" );}
-	,jsa    : function() {return javask.tag.a().attr( {href: "javascript:void(0);"} );}
-	,ul     : function() {return $( "<ul />" );}
-	,li     : function() {return $( "<li />" );}
-	,input  : function( type , id ) {return $( "<input type=\"" + type + "\" id=\"" + id + "\" name=\"" + id + "\" />" );}
+	 "link"   : function() {return $( "<link />" );}
+	,"css"    : function() {return javask.tag.link().attr( {rel: "stylesheet",type: "text/css"} );}
+	,"script" : function() {return $( "<script />" );}
+	,"jscript": function() {return javask.tag.script().attr( {type: "text/javascript"} );}
+	,"div"    : function() {return $( "<div />" );}
+	,"span"   : function() {return $( "<span />" );}
+	,"samp"   : function() {return $( "<samp />" );}
+	,"p"      : function() {return $( "<p />" );}
+	,"label"  : function() {return $( "<label />" );}
+	,"a"      : function() {return $( "<a />" );}
+	,"jsa"    : function() {return javask.tag.a().attr( {href: "javascript:void(0);"} );}
+	,"ul"     : function() {return $( "<ul />" );}
+	,"li"     : function() {return $( "<li />" );}
+	,"input"  : function( type , id ) {return $( "<input type=\"" + type + "\" id=\"" + id + "\" name=\"" + id + "\" />" );}
 } );
 /***************************************************************************************************************************************************/
 
@@ -1443,6 +1474,7 @@ $.extend( javask , {
  * 加载配置文件
  */
 javask.imports._import( "js" , ( function() {
+
 	var js , urlVersion = "engine-" + javask.version + ".js";
 	$( "script" ).each( function( index , script ) {
 		script = $( script );
@@ -1451,8 +1483,10 @@ javask.imports._import( "js" , ( function() {
 			return false;
 		}
 	} );
-	if( !javask.object.isUndefined( js ) ) {
-		return js.attr( "src" ).replace( urlVersion , "config-" + javask.version + ".js" );
+	//noinspection JSUnusedAssignment
+    if( !javask.object.isUndefined( js ) ) {
+		//noinspection JSUnusedAssignment
+        return js.attr( "src" ).replace( urlVersion , "config-" + javask.version + ".js" );
 	}
 	return null;
 } )() , "Javask_Config" );
@@ -1463,7 +1497,8 @@ javask.imports._import( "js" , ( function() {
  * 兼容 console.log()
  */
 if( javask.object.isUndefined( window.console ) ) {
-	window.console = {
+	//noinspection JSValidateTypes
+    window.console = {
 		log: javask.N
 	};
 }

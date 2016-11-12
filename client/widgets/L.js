@@ -6,10 +6,12 @@
  * @version 1.0
  */
 
+"use strict";
+
 // iframe 中的 dialog 处理
 if( typeof dialog == "undefined" ) {
 	
-	// 如果 dialog 为 undefine
+	// 如果 dialog 为 undefined
 	try {
 		dialog = top.dialog;
 	}catch( e ) {
@@ -27,70 +29,70 @@ $.extend( L.config , {
 	/**
 	 * 开发者模式开关
 	 */
-	 developer: true
+	 "developer": true
 	/**
 	 * 页大小
 	 */
-	,pageSize: 10
+	,"pageSize": 10
 	/**
 	 * 默认打开第几个菜单
 	 */
-	,defaultMenuNumber: 1
+	,"defaultMenuNumber": 1
 	/**
 	 * 系统根目录<br/>
 	 * 设置时,推荐使用 setURL( url )
 	 */
-	,url: ""
+	,"url": ""
 	
 	/**
 	 * 对话框相关
 	 */
-	,dialog: {
+	,"dialog": {
 		/**
 		 * 对话框标题 - 系统提示
 		 */
-		 TITLE : "系统提示"
+		 "TITLE" : "系统提示"
 		/**
 		 * 对象框保存按钮文字 - 保存
 		 */
-		,SAVE  : "保存"
+		,"SAVE"  : "保存"
 		/**
 		 * 对话框确认按钮文字 - 确定
 		 */
-		,OK    : "确定"
+		,"OK"    : "确定"
 		/**
 		 * 对话框取消按钮文字 - 取消
 		 */
-		,CANCEL: "取消"
+		,"CANCEL": "取消"
 		/**
 		 * 对话框关闭按钮文字 - 关闭
 		 */
-		,CLOSE : "关闭"
+		,"CLOSE" : "关闭"
 	}
 	
 	/**
 	 * 系统时间格式化字符串<br/>
 	 * 完整时间: yyyy-MM-dd HH:mm:ss
 	 */
-	,SYSTEM_DATE_PATTERN_DATETIME: "yyyy-MM-dd HH:mm:ss"
+	,"SYSTEM_DATE_PATTERN_DATETIME": "yyyy-MM-dd HH:mm:ss"
 	/**
 	 * 系统时间格式化字符串<br/>
 	 * 日期: yyyy-MM-dd
 	 */
-	,SYSTEM_DATE_PATTERN_DATE: "yyyy-MM-dd"
+	,"SYSTEM_DATE_PATTERN_DATE": "yyyy-MM-dd"
 	/**
 	 * 系统时间格式化字符串<br/>
 	 * 时间: HH:mm:ss
 	 */
-	,SYSTEM_DATE_PATTERN_TIME: "HH:mm:ss"
+	,"SYSTEM_DATE_PATTERN_TIME": "HH:mm:ss"
 	/**
 	 * 列表排序字段模板
 	 */
-	,HTML_LIST_SORTNUMBER: '<input id="{id}" name="{name}" type="text" value="{value}" class="field_text sort" />'
+	,"HTML_LIST_SORTNUMBER": '<input id="{id}" name="{name}" type="text" value="{value}" class="field_text sort" />'
 	/**
 	 * 列表布尔字段模板
 	 */
-	,HTML_LIST_BOOLEAN: '<span class="icon_{value}"></span>'
+	,"HTML_LIST_BOOLEAN": '<span class="icon_{value}"></span>'
 
 } );
 
@@ -100,7 +102,7 @@ $.extend( L , {
 	/**
 	 * 设置系统根目录
 	 */
-	 setUrl: function( url ) {
+	 "setUrl": function( url ) {
 		
 		url = url || "";
 		
@@ -127,13 +129,21 @@ $.extend( L , {
 	/**
 	 * 日志
 	 */
-	,log: function( message ) {
-		L.config.developer && console.log( message );
-	}
+	,"log": ( function() {
+
+        var log;
+
+		L.config.developer
+            ? ( log = console.log.bind( window.console ) )
+            : ( log = $.noop )
+        ;
+
+        return log;
+	} )()
 	/**
 	 * 执行字符串表示的 JS 语句
 	 */
-	,eval: $.globalEval
+	,"eval": $.globalEval
 	/**********************************************************************************************************/
 	/**
 	 * 内容显示框
@@ -141,7 +151,7 @@ $.extend( L , {
 	 * @param message 需要提示的信息
 	 * @call L.info( message );
 	 */
-	,info: function( message , title ) {
+	,"info": function( message , title ) {
 
 		if( javask.object.isUndefined( message ) || javask.string.blank( message ) ) {
 			return null;
@@ -169,7 +179,7 @@ $.extend( L , {
 	 * @param callback 回调函数
 	 * @call L.alert( message [ , callback ] );
 	 */
-	,alert: function( message , callback ) {
+	,"alert": function( message , callback ) {
 		
 		if( javask.object.isUndefined( message ) || javask.string.blank( message ) ) {
 			return null;
@@ -197,7 +207,7 @@ $.extend( L , {
 	 * @param cancel  取消按钮事件
 	 * @call L.confirm( message [ , ok , cancel ] );
 	 */
-	,confirm: function( message , ok , cancel ) {
+	,"confirm": function( message , ok , cancel ) {
 		
 		if( javask.object.isUndefined( message ) || javask.string.blank( message ) ) {
 			return null;
@@ -228,7 +238,7 @@ $.extend( L , {
 	 * @param _default 默认值
 	 * @call L.prompt( message [ , yes , _default ] );
 	 */
-	,prompt: function( message , yes , _default ) {
+	,"prompt": function( message , yes , _default ) {
 		
 		if( javask.object.isUndefined( message ) || javask.string.blank( message ) ) {
 			return null;
@@ -278,7 +288,7 @@ $.extend( L , {
 	 * @param delay   显示时间(默认:1.5秒)
 	 * @call L.tips( message [ , delay ] );
 	 */
-	,tips: function( message , delay ) {
+	,"tips": function( message , delay ) {
 		
 		if( javask.object.isUndefined( message ) || javask.string.blank( message ) ) {
 			return null;
@@ -311,7 +321,7 @@ $.extend( L , {
 	 * @param animate 是否需要动画显示
 	 * @call L.loading( message , animate );
 	 */
-	,loading: function( message , animate ) {
+	,"loading": function( message , animate ) {
 		
 		if( typeof message == "boolean" ) {
 			animate = message;
@@ -390,7 +400,7 @@ $.extend( L , {
 	 * @param dblclick 双击事件
 	 * @call L.bindClickAndDblclick( handler , click , dblclick );
 	 */
-	,bindClickAndDblclick: function( handler , click , dblclick ) {
+	,"bindClickAndDblclick": function( handler , click , dblclick ) {
 		
 		// 如果 handler 长度为零,直接返回
 		if( handler.length < 1 ) {
@@ -433,7 +443,7 @@ $.extend( L , {
 	 * @return String 处理后的字符串
 	 * @call L.pattern( text , length );
 	 */
-	,pattern: function( text , length ) {
+	,"pattern": function( text , length ) {
 		
 		// 如果 text 为空,或 length < 1,直接返回空字符串
 		if( text == null || javask.object.isUndefined( text ) || length < 1 ) {
@@ -450,7 +460,7 @@ $.extend( L , {
 		// 长度默认为 2 位
 		length = length || 2;
 		
-		var index = 0 , pattern = "";
+		var index = 0 , pattern;
 		
 		// 预置 50 个 "0"
 		pattern = "00000000000000000000000000000000000000000000000000";
@@ -483,7 +493,7 @@ $.extend( L , {
 	 * @return String 当前时间字符串
 	 * @call L.formatDate( new Date() , "yyyy-MM-dd HH:mm:ss" );
 	 */
-	,formatDate: function( date , pattern ) {
+	,"formatDate": function( date , pattern ) {
 		
 		// 如果 date 不是 Date 对象,或为空,则直接返回空字符串
 		if( !( date instanceof Date ) || date == null || javask.object.isUndefined( date ) ) {
@@ -538,7 +548,7 @@ $.extend( L , {
 	 * @return String 系统当前完整时间字符串
 	 * @call L.getSystemDateTime();
 	 */
-	,getSystemDateTime: function() {
+	,"getSystemDateTime": function() {
 			
 		return L.formatDate( new Date() );
 	}
@@ -550,7 +560,7 @@ $.extend( L , {
 	 * @return String 系统当前日期字符串
 	 * @call L.getSystemDate();
 	 */
-	,getSystemDate: function() {
+	,"getSystemDate": function() {
 		
 		return L.formatDate( new Date() , "yyyy年MM月dd日&nbsp;星期WW" );
 	}

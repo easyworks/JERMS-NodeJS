@@ -2,23 +2,23 @@
 /* design by Javask */
 
 /* 总体样式定义 */
-#javask {padding:0px; margin:0px; text-align:left; color:#666; font-size:12px; font-family:"microsoft yahei","宋体",Tahoma,Verdana,Arial,Helvetica,sans-serif; background:#fff url(../img/empty.gif);}
+#javask {padding:0; margin:0; text-align:left; color:#666; font-size:12px; font-family:"microsoft yahei","宋体",Tahoma,Verdana,Arial,Helvetica,sans-serif; background:#fff url(../img/empty.gif);}
 h1, h2, h3, h4, h5, h6, form, div, p, i, img, ul, li, ol, dl, dt, dd, table, tr, td, fieldset, label, legend,
-header, footer, nav, figure, figcaption, section, article {margin:0px; padding:0px;}
+header, footer, nav, figure, figcaption, section, article {margin:0; padding:0;}
 a img, img, form {border:none;}
 a {color:#333; font-family:"microsoft yahei","宋体",Tahoma,Verdana,Arial,Helvetica,sans-serif; text-decoration:none;}
 a:hover {color:#f60; text-decoration:underline;}
 div, ul, li, fieldset,
 nav, header, footer, section, figure, figcaption {/*overflow:hidden;*/}
 ul, li {list-style:none;}
-input, textarea, select, button {margin:0px; padding:0px; font-family:"microsoft yahei","宋体",Tahoma,Verdana,Arial,Helvetica,sans-serif; color:#666;}
+input, textarea, select, button {margin:0; padding:0; font-family:"microsoft yahei","宋体",Tahoma,Verdana,Arial,Helvetica,sans-serif; color:#666;}
 input:focus {outline:none;}
 textarea:focus {outline:none;}
 select:focus {outline:none;}
 button:focus {outline:none;}
 
 /* clear */
-.clear, .clearleft {height:0px; font-size:0px; overflow:hidden;}
+.clear, .clearleft {height:0; font-size:0; overflow:hidden;}
 .clear {clear:both;}
 .clear1 {clear:both;}
 .clearleft {clear:left;}
@@ -58,15 +58,15 @@ button:focus {outline:none;}
 .padrig10 {padding-right:10px;}
 
 /* 外补丁 */
-.marc {margin:0px auto;}
-.mar0 {margin:0px;}
+.marc {margin:0 auto;}
+.mar0 {margin:0;}
 .mar4 {margin:4px;}
 .mar5 {margin:5px;}
 .mar8 {margin:8px;}
 .mar10 {margin:10px;}
 .martop5 {margin-top:5px;}
-.martb5 {margin:5px 0px;}
-.marlr5 {margin:0px 5px;}
+.martb5 {margin:5px 0;}
+.marlr5 {margin:0 5px;}
 .marlf5 {margin-left:5px;}
 .marrg5 {margin-right:5px;}
 .marlf10 {margin-left:10px;}
