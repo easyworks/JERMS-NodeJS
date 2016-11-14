@@ -99,4 +99,5 @@ var _getConnectionDatabaseUrl = function() {
 };
 config.database.url = _getConnectionDatabaseUrl();
 
+/**********************************************************************************************/
 module.exports = config;

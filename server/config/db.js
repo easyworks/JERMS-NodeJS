@@ -47,7 +47,6 @@ sequelize.transaction( function( tr ) {
         } );
 } );
 
-
 var databaseConfig = config.database.default;
 // create a config to configure both pooling behavior and client options
 // note: all config is optional and the environment variables will be read if the config is not present
@@ -103,7 +102,8 @@ var getJERMSTableName = function( tableName ) {
     return tablePrefix.jerms + tableName;
 };
 
-exports.Pool            = pool;
+/**********************************************************************************************/
+exports.pool            = pool;
 exports.sequelize       = sequelize;
 exports.tablePrefix     = tablePrefix;
 exports.config          = config;

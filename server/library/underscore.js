@@ -19,5 +19,6 @@ var templateSettings = {
     ,"escape"     : /\{\{([\s\S]+?)}}/g   // escapte 表示输出这个变量的值并且进行html标签过滤，将相关的字符如"<"转为"&lt;"
 };
 
+/**********************************************************************************************/
 exports._ = _;
 exports.templateSettings = templateSettings;

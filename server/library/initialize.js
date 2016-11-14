@@ -22,6 +22,7 @@ var errorprocess = require( "../library/errorprocess" );
 
 // routes imports
 var rootRoute    = require( "../routes/rootRoute" );
+var systemRoute  = require( "../routes/systemRoute" );
 
 /**
  * view engine setup.
@@ -107,6 +108,7 @@ var routerConfiguration = function( app ) {
 
     // routes configuration
     app.use( "/" , rootRoute );
+    app.use( "/system" , systemRoute );
 };
 
 /**
@@ -125,6 +127,7 @@ var errorHandlers = function( app ) {
     app.use( errorprocess.error500ForProduction );
 };
 
+/**********************************************************************************************/
 exports.viewSetup = viewSetup;
 exports.loggerAndParser = loggerAndParser;
 exports.session = _session;
