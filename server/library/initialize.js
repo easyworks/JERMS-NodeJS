@@ -21,8 +21,8 @@ var config       = require( "../config/config" );
 var errorprocess = require( "../library/errorprocess" );
 
 // routes imports
-var rootRoute    = require( "../routes/rootRoute" );
-var systemRoute  = require( "../routes/systemRoute" );
+var rootRoute    = require( "../routes/root" );
+var systemRoute  = require( "../routes/system" );
 
 /**
  * view engine setup.
