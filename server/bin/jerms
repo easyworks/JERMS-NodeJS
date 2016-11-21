@@ -5,15 +5,17 @@
 /**
  * Module dependencies.
  */
-var app   = require( "../app" );
 var debug = require( "debug" )( "jcms-node:server" );
 var http  = require( "http" );
+
+var app   = require( "../app" );
+var config = require( "../config" );
 
 //noinspection JSUnresolvedVariable
 /**
  * Get port from environment and store in Express.
  */
-var port = normalizePort( process.env.PORT || "8001" );
+var port = normalizePort( process.env.PORT || config.server.port );
 app.set( "port" , port );
 
 //noinspection JSUnresolvedFunction
@@ -25,7 +27,7 @@ var server = http.createServer( app );
 /**
  * Listen on provided port, on all network interfaces.
  */
-server.listen( port , "127.0.0.1" );
+server.listen( port , config.server.host );
 server.on( "error" , onError );
 server.on( "listening" , onListening );
 
@@ -62,19 +64,16 @@ function onError( error ) {
         throw error;
     }
 
-    var bind = typeof port === "string"
-            ? "Pipe " + port
-            : "Port " + port
-        ;
+    var bind = typeof port === "string" ? "Pipe %s" : "Port %s";
 
     // handle specific listen errors with friendly messages
     switch( error.code ) {
         case "EACCES":
-            console.error( bind + " requires elevated privileges" );
+            console.error( bind + " requires elevated privileges" , port );
             process.exit( 1 );
             break;
         case "EADDRINUSE":
-            console.error( bind + " is already in use" );
+            console.error( bind + " is already in use" , port );
             process.exit( 1 );
             break;
         default:
@@ -90,9 +89,9 @@ function onListening() {
     var address = server.address();
     //noinspection JSUnusedLocalSymbols
     var bind = typeof address === "string"
-            ? "pipe " + address
-            : "port " + address.port
-        ;
+        ? "pipe " + address
+        : "port " + address.port
+    ;
 
     debug( "Listening on " + bind );
 }

@@ -106,7 +106,7 @@ var subChineseStringBylength = function( str , start , length ) {
     return this.subCHString( str , start , start + length );
 };
 
-/**********************************************************************************************/
+// =================================================================================================
 exports.getLength = getLength;
 exports.stringToCharArray = stringToCharArray;
 exports.isChineseChar = isChineseChar;

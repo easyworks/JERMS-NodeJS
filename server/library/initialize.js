@@ -17,7 +17,7 @@ var logger       = require( "morgan" );
 var cookieParser = require( "cookie-parser" );
 var bodyParser   = require( "body-parser" );
 
-var config       = require( "../config/config" );
+var config       = require( "../config" );
 var errorprocess = require( "../library/errorprocess" );
 
 // routes imports
@@ -118,19 +118,31 @@ var routerConfiguration = function( app ) {
  */
 var errorHandlers = function( app ) {
 
+    // development error handler
+    app.get( "env" ) === "development"
+        && app.use( errorprocess.error404ForDevelopment )
+        && app.use( errorprocess.error500ForDevelopment )
+    ;
     // catch 404 and forward to error handler
     app.use( errorprocess.error404ForProduction );
-
-    // development error handler
-    app.get( "env" ) === "development" && app.use( errorprocess.error500ForDevelopment );
     // production error handler
     app.use( errorprocess.error500ForProduction );
 };
 
-/**********************************************************************************************/
+/**
+ * 服务器启动时打印服务器信息
+ */
+var logServerInfo = function() {
+
+    console.log( "> Server listening on %s:%s" , config.server.host , config.server.port );
+    console.log( "> Server start successful!" );
+};
+
+// =================================================================================================
 exports.viewSetup = viewSetup;
 exports.loggerAndParser = loggerAndParser;
 exports.session = _session;
 exports.pathConfiguration = pathConfiguration;
 exports.routerConfiguration = routerConfiguration;
 exports.errorHandlers = errorHandlers;
+exports.logServerInfo = logServerInfo;

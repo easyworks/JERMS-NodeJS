@@ -8,13 +8,13 @@
 "use strict";
 
 var path = require( "path" );
-var underscore = require( "../library/underscore" );
-var _ = underscore._;
-
-_.templateSettings = underscore.templateSettings;
 
 var config = {
-     "redis": {
+    "server": {
+         "host": "127.0.0.1"
+        ,"port": 8001
+    }
+    ,"redis": {
          "host": "127.0.0.1"
         ,"port": "6379"
     }
@@ -29,18 +29,19 @@ var config = {
         "maxAge": 60 * 1000 * 60   // 1 hour
     }
     ,"views": {
-         "path"  : path.join( __dirname , "../views" )
+         "path"  : path.join( __dirname , "views" )
         ,"engine": "jade"
     }
     ,"errorpage": {
-         "error404"              : "error"
-        ,"error500"              : "error"
-        ,"error500ForDevelopment": "error"
+         "error404"              : "error/production/404"
+        ,"error404ForDevelopment": "error/development/404"
+        ,"error500"              : "error/production/500"
+        ,"error500ForDevelopment": "error/development/500"
     }
     ,"database": {
-         "mode"       : "development"                    // 模式,使用哪个数据链接
+         "mode"       : "development"             // 模式,使用哪个数据链接
         ,"url"        : ""                        // 链接字符串
-        ,"tablePrefix": {                   // 数据表前缀
+        ,"tablePrefix": {                         // 数据表前缀
              "jerms" : "jerms_"
             ,"global": "glb_"
             ,"system": "sys_"
@@ -72,32 +73,5 @@ var config = {
     ,"domain": "lengchao.cn"
 };
 
-/**
- * get default database configuration.
- */
-( function() {
-
-    var mode = config.database.mode;
-
-    config.database.default = config.database[ mode ];
-    !config.database.default && ( config.database.default = config.database.development );
-} )();
-
-/**
- * generate database connection url.
- *
- * @returns {*}
- * @private
- */
-var _getConnectionDatabaseUrl = function() {
-
-    var data = config.database.default;
-    var url = data.template;
-
-    var ct = _.template( url );
-    return ct( data );
-};
-config.database.url = _getConnectionDatabaseUrl();
-
-/**********************************************************************************************/
+// =================================================================================================
 module.exports = config;

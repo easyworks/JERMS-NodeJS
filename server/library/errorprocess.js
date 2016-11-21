@@ -9,8 +9,30 @@
 
 "use strict";
 
-var config = require( "../config/config" );
+var config = require( "../config" );
 
+/**
+ * 404error for development process.
+ * development error handler
+ * will print stacktrace
+ *
+ * @param request
+ * @param response
+ * @param next
+ */
+var error404ForDevelopment = function( request , response , next ) {
+
+    var error = new Error( "Not Found" );
+    error.status = 404;
+
+    response.status( error.status || 404 );
+    response.render( config.errorpage.error404ForDevelopment , {
+         "message": error.message
+        ,"error"  : error
+    } );
+
+    //next( error );
+};
 /**
  * 404 error for production process.
  * catch 404 and forward to error handler
@@ -24,7 +46,13 @@ var error404ForProduction = function( request , response , next ) {
     var error = new Error( "Not Found" );
     error.status = 404;
 
-    next( error );
+    response.status( error.status || 404 );
+    response.render( config.errorpage.error404 , {
+         "message": error.message
+        ,"error"  : error
+    } );
+
+    //next( error );
 };
 
 /**
@@ -81,8 +109,9 @@ var sessionErrorHandler = function( request , response , next ) {
     next();
 };
 
-/**********************************************************************************************/
+// =================================================================================================
+exports.error404ForDevelopment = error404ForDevelopment;
 exports.error404ForProduction = error404ForProduction;
-exports.error500ForProduction = error500ForProduction;
 exports.error500ForDevelopment = error500ForDevelopment;
+exports.error500ForProduction = error500ForProduction;
 exports.sessionErrorHandler = sessionErrorHandler;

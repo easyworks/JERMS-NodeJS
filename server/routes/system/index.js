@@ -9,8 +9,8 @@
 
 var express = require( "express" );
 
-var systemRouter = express();
+var systemRouter = express.Router();
 
 
-/**********************************************************************************************/
+// =================================================================================================
 module.exports = systemRouter;
