@@ -33,10 +33,14 @@ var config = {
         ,"engine": "jade"
     }
     ,"errorpage": {
-         "error404"              : "error/production/404"
-        ,"error404ForDevelopment": "error/development/404"
-        ,"error500"              : "error/production/500"
-        ,"error500ForDevelopment": "error/development/500"
+        "development": {
+             "404": "error/development/404"
+            ,"500": "error/development/500"
+        }
+        ,"production": {
+             "404": "error/production/404"
+            ,"500": "error/production/500"
+        }
     }
     ,"database": {
          "mode"       : "development"             // 模式,使用哪个数据链接

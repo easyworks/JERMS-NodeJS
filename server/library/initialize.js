@@ -118,15 +118,15 @@ var routerConfiguration = function( app ) {
  */
 var errorHandlers = function( app ) {
 
+    // catch 404 and forward to error handler
+    app.use( errorprocess.error404Process );
+
     // development error handler
     app.get( "env" ) === "development"
-        && app.use( errorprocess.error404ForDevelopment )
-        && app.use( errorprocess.error500ForDevelopment )
+        ? app.use( errorprocess.errorForDevelopment )
+        // production error handler
+        : app.use( errorprocess.errorForProduction )
     ;
-    // catch 404 and forward to error handler
-    app.use( errorprocess.error404ForProduction );
-    // production error handler
-    app.use( errorprocess.error500ForProduction );
 };
 
 /**

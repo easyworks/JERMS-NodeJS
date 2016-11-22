@@ -1,6 +1,28 @@
-//extends ./layout/base
+doctype html
 
-h1= message
-h2= error.status
-pre #{error.stack}
-div aaaaaaaaaaaaaaaaaaaaaaaaaa
+html
+    head
+        meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0")
+        meta(name="format-detection" content="telephone=no")
+        meta(name="format-detection" content="email=no")
+        meta(name="format-detection" content="address=no")
+        meta(chatset="utf-8")
+        meta(name="keywords" content="")
+        meta(name="description" content="")
+        title Super Admin Presponsive Template
+        link(type="text/css" rel="stylesheet" href="/widgets/bootstrap/dist/css/bootstrap.min.css")
+        link(type="text/css" rel="stylesheet" href="/template/css/generics.css")
+        link(type="text/css" rel="stylesheet" href="/template/css/style.css")
+    //-head
+    body#skin-blur-ocean
+        section#error-page.tile
+            h1.m-b-10 ERROR&nbsp;404
+            p 抱歉，您访问的页面未找到，请检查您的链接！
+            p 请不要担心，我们会帮您找到正确的页面！
+            a.underline(href="javascript:history.go(-1);") 返回上一页
+            | &nbsp;or&nbsp;
+            //a.underline(href="") Go to Home page
+            a.underline(href="/") 返回首页
+        //-section
+    //-body
+//-html

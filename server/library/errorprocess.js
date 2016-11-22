@@ -12,79 +12,58 @@
 var config = require( "../config" );
 
 /**
- * 404error for development process.
- * development error handler
- * will print stacktrace
+ * 404 error process.
  *
  * @param request
  * @param response
  * @param next
  */
-var error404ForDevelopment = function( request , response , next ) {
+var error404Process = function( request , response , next ) {
 
     var error = new Error( "Not Found" );
     error.status = 404;
 
-    response.status( error.status || 404 );
-    response.render( config.errorpage.error404ForDevelopment , {
-         "message": error.message
-        ,"error"  : error
-    } );
-
-    //next( error );
-};
-/**
- * 404 error for production process.
- * catch 404 and forward to error handler
- *
- * @param request
- * @param response
- * @param next
- */
-var error404ForProduction = function( request , response , next ) {
-
-    var error = new Error( "Not Found" );
-    error.status = 404;
-
-    response.status( error.status || 404 );
-    response.render( config.errorpage.error404 , {
-         "message": error.message
-        ,"error"  : error
-    } );
-
-    //next( error );
+    next( error );
 };
 
 /**
- * 500 error for development process.
+ * error for development process.
  * development error handler
  * will print stacktrace
  *
  * @param error
  * @param request
  * @param response
+ * @param next
  */
-var error500ForDevelopment = function( error , request , response ) {
+var errorForDevelopment = function( error , request , response , next ) {
 
-    response.status( error.status || 500 );
-    response.render( config.errorpage.error500ForDevelopment , {
+    var status = error.status || 500;
+    var errorpage = config.errorpage.development[ status ];
+
+    response.status( status );
+    response.render( errorpage , {
          "message": error.message
         ,"error"  : error
     } );
 };
 /**
- * 500 error for production process.
+ * error for production process.
  * production error handler
  * no stacktraces leaked to user
  *
  * @param error
  * @param request
  * @param response
+ * @param next
  */
-var error500ForProduction = function( error , request , response ) {
+var errorForProduction = function( error , request , response , next ) {
 
-    response.status( error.status || 500 );
-    response.render( config.errorpage.error500 , {
+    var status = error.status || 500;
+    var errorpage = config.errorpage.production[ status ];
+
+    response.status( status );
+    response.render( errorpage , {
          "message": error.message
         ,"error"  : {}
     } );
@@ -110,8 +89,7 @@ var sessionErrorHandler = function( request , response , next ) {
 };
 
 // =================================================================================================
-exports.error404ForDevelopment = error404ForDevelopment;
-exports.error404ForProduction = error404ForProduction;
-exports.error500ForDevelopment = error500ForDevelopment;
-exports.error500ForProduction = error500ForProduction;
+exports.error404Process = error404Process;
+exports.errorForDevelopment = errorForDevelopment;
+exports.errorForProduction = errorForProduction;
 exports.sessionErrorHandler = sessionErrorHandler;

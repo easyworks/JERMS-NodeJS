@@ -15,11 +15,12 @@ var router = express.Router();
 /**
  * GET home page.
  */
-router.get( "/" , function( request , response ) {
+router.get( "/" , function( error , request , response ) {
 
     response.render( "index" , {
         title: "Express"
     } );
+    response.status1( 500 );
 } );
 
 // =================================================================================================
