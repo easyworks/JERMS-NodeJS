@@ -21,8 +21,9 @@ var config       = require( "../config" );
 var errorprocess = require( "../library/errorprocess" );
 
 // routes imports
-var rootRoute    = require( "../routes/root" );
-var systemRoute  = require( "../routes/system" );
+var rootRoute     = require( "../routes/root" );
+var systemRoute   = require( "../routes/system" );
+var templateRoute = require( "../routes/template" );
 
 /**
  * view engine setup.
@@ -109,6 +110,7 @@ var routerConfiguration = function( app ) {
     // routes configuration
     app.use( "/" , rootRoute );
     app.use( "/system" , systemRoute );
+    app.use( "/template" , templateRoute );
 };
 
 /**

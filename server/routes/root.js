@@ -20,7 +20,6 @@ router.get( "/" , function( error , request , response ) {
     response.render( "index" , {
         title: "Express"
     } );
-    response.status1( 500 );
 } );
 
 // =================================================================================================
