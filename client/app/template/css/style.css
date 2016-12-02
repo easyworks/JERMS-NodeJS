@@ -272,6 +272,7 @@ blockquote small {
 #header {
     border-bottom :1px solid rgba(255, 255, 255, 0.15);
     min-height    :50px;
+    /*height        :50px;*/
     position      :relative;
     padding-right :7px;
 }
@@ -285,7 +286,7 @@ blockquote small {
     width        :233px;
     height       :50px;
     text-align   :center;
-    padding      :14px 0 12px 40px;
+    padding      :14px 0 12px 40px!important;
     font-size    :16px;
     margin-right :9px !important;
     background   :rgba(0, 0, 0, 0.23);
@@ -293,7 +294,8 @@ blockquote small {
 
 /* Top Menu */
 #top-menu .tm-icon {
-    margin :0;
+    margin        :0;
+    padding-right :0;
 }
 
 #top-menu .tm-icon > a {
@@ -1563,6 +1565,7 @@ a.list-group-item.active:focus {
 
 a.list-group-item:hover,
 a.list-group-item:focus {
+    color      :#fff;
     background :rgba(0, 0, 0, 0.1);
 }
 
@@ -2343,3 +2346,4 @@ a.list-group-item.active > .badge,
     }
 }
 
+.media-body.reset {width:auto; display:block;}

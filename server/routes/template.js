@@ -11,8 +11,8 @@ var express = require( "express" );
 var router = express.Router();
 
 var pages = [
-    // index ----------------------------------------------
-     "dashboard"
+    // dashboard ------------------------------------------
+     "home"
     // typography -----------------------------------------
     ,"/typography"
     // widgets --------------------------------------------
@@ -25,13 +25,13 @@ var pages = [
     ,"/form/examples"
     ,"/form/validation"
     // user interface -------------------------------------
-    ,"/user-interface/buttons"
-    ,"/user-interface/labels"
-    ,"/user-interface/images-icons"
-    ,"/user-interface/alters"
-    ,"/user-interface/media"
-    ,"/user-interface/components"
-    ,"/user-interface/others"
+    ,"/ui/buttons"
+    ,"/ui/labels"
+    ,"/ui/images-icons"
+    ,"/ui/alters"
+    ,"/ui/media"
+    ,"/ui/components"
+    ,"/ui/others"
     // photo gallery --------------------------------------
     ,"/photo-gallery"
     // charts ---------------------------------------------
@@ -43,8 +43,9 @@ var pages = [
     // pages ----------------------------------------------
     ,"/pages/list-view"
     ,"/pages/profile-page"
-    ,"/pages/messages"
-    ,"/pages/login"
+    ,"/pages/messages"                // bingo
+    ,"/pages/message"
+    ,"/pages/login"                   // bingo
 ];
 
 ( function() {

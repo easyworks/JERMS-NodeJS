@@ -819,7 +819,7 @@ $.extend( javask.string , {
 		str = str || "";
 
 		var  strlen = 0
-			,s = ""
+			,s = []
 			,length
 		;
 
@@ -828,14 +828,14 @@ $.extend( javask.string , {
 			
 			str.charCodeAt( i ) > 128 ? strlen += 2 : strlen++;
 			
-			s += str.charAt( i );
+			s.push( str.charAt( i ) );
 			
 			if( strlen >= len ) {
 				
-				return s ;
+				return s.join( "" );
 			}
 		}
-		return s;
+		return s.join( "" );
 	}
 	
 	/**

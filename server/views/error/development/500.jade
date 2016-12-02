@@ -22,8 +22,9 @@ html
             | &nbsp;or&nbsp;
             a.underline(href="/") 返回首页
             .text-left
-                h3= message
-                pre #{error.stack}
+                //h3= message
+                pre= message
+                pre= error.stack
             //-div
         //-section
     //-body

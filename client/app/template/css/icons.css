@@ -60,24 +60,24 @@
     background-repeat: no-repeat;
     float: left;
 }
-.editor-text { background-image: url(../img/editor/text.png);}
-.editor-bold { background-image: url(../img/editor/bold.png);}
-.editor-italic { background-image: url(../img/editor/italic.png);}
-.editor-underline { background-image: url(../img/editor/underline.png);}
-.editor-unstyle { background-image: url(../img/editor/unstyle.png);}
-.editor-unlist { background-image: url(../img/editor/unlist.png);}
-.editor-orderlist { background-image: url(../img/editor/orderlist.png);}
-.editor-align { background-image: url(../img/editor/align.png);}
-.editor-line-height { background-image: url(../img/editor/line-height.png);}
-.editor-table { background-image: url(../img/editor/table.png);}
-.editor-link { background-image: url(../img/editor/link.png);}
-.editor-picture { background-image: url(../img/editor/picture.png);}
-.editor-video { background-image: url(../img/editor/video.png);}
-.editor-full-screen { background-image: url(../img/editor/full-screen.png);}
-.editor-code { background-image: url(../img/editor/code.png);}
-.editor-help { background-image: url(../img/editor/help.png);}
-.editor-font { background-image: url(../img/editor/font.png);}
-.editor-heading { background-image: url(../img/editor/heading.png);}
+.editor-text        {background-image:url(/template/images/editor/text.png);}
+.editor-bold        {background-image:url(/template/images/editor/bold.png);}
+.editor-italic      {background-image:url(/template/images/editor/italic.png);}
+.editor-underline   {background-image:url(/template/images/editor/underline.png);}
+.editor-unstyle     {background-image:url(/template/images/editor/unstyle.png);}
+.editor-unlist      {background-image:url(/template/images/editor/unlist.png);}
+.editor-orderlist   {background-image:url(/template/images/editor/orderlist.png);}
+.editor-align       {background-image:url(/template/images/editor/align.png);}
+.editor-line-height {background-image:url(/template/images/editor/line-height.png);}
+.editor-table       {background-image:url(/template/images/editor/table.png);}
+.editor-link        {background-image:url(/template/images/editor/link.png);}
+.editor-picture     {background-image:url(/template/images/editor/picture.png);}
+.editor-video       {background-image:url(/template/images/editor/video.png);}
+.editor-full-screen {background-image:url(/template/images/editor/full-screen.png);}
+.editor-code        {background-image:url(/template/images/editor/code.png);}
+.editor-help        {background-image:url(/template/images/editor/help.png);}
+.editor-font        {background-image:url(/template/images/editor/font.png);}
+.editor-heading     {background-image:url(/template/images/editor/heading.png);}
 
 /* List Icons */
 [class*="sa-list-"] {
@@ -104,7 +104,7 @@
 
 
 /* Others */
-#menu-toggle {background-image:url(/template/images/icon/menu.png);}
+#menu-toggle {background-image:url(/template/images/icon/menu.png)!important;}
 
 /* Form */
 .sa-plus {
@@ -116,12 +116,12 @@
 
 /* For Higher DPI */
 @media
-only screen and (-webkit-min-device-pixel-ratio: 1.25),
-only screen and (   min--moz-device-pixel-ratio: 1.25),
-only screen and (     -o-min-device-pixel-ratio: 2/1),
-only screen and (        min-device-pixel-ratio: 1.25),
-only screen and (                min-resolution: 120dpi),
-only screen and (                min-resolution: 1.25dppx) {
+only screen and (-webkit-min-device-pixel-ratio:1.25),
+only screen and (   min--moz-device-pixel-ratio:1.25),
+only screen and (     -o-min-device-pixel-ratio:2/1),
+only screen and (        min-device-pixel-ratio:1.25),
+only screen and (                min-resolution:120dpi),
+only screen and (                min-resolution:1.25dppx) {
 
     /* Left Menu */
     .sa-side-typography, .sa-side-widget, .sa-side-table, .sa-side-ui, .sa-side-folder {background-size:23px 21px;}

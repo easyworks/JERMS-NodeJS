@@ -151,12 +151,11 @@ $( document ).ready( function() {
     -----------------------------------------------------------*/
     ( function() {
 
-        //noinspection JSJQueryEfficiency
         var overflow = $( ".overflow" );
         if( !!overflow.length ) {
             //noinspection JSUnusedLocalSymbols
             var  overflowInvisible = false
-                ,overflowRegular   = $( ".overflow" ).niceScroll()
+                ,overflowRegular   = overflow.niceScroll()
             ;
         }
     } )();
@@ -170,10 +169,10 @@ $( document ).ready( function() {
 
             event.preventDefault();
             var drawer = $( this ).attr( "data-drawer" );
-            drawer = $( "#" + drawer );
 
             $( '.drawer:not("#' + drawer + '")' ).removeClass( "toggled" );
 
+            drawer = $( "#" + drawer );
             drawer.hasClass( "toggled" )
                 ? drawer.removeClass( "toggled" )
                 : drawer.addClass( "toggled" )
