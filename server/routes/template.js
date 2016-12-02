@@ -44,7 +44,7 @@ var pages = [
     ,"/pages/list-view"
     ,"/pages/profile-page"
     ,"/pages/messages"                // bingo
-    ,"/pages/message"
+    ,"/pages/message"                 // bingo
     ,"/pages/login"                   // bingo
 ];
 
