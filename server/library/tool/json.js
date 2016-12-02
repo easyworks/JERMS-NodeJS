@@ -7,6 +7,9 @@
 
 "use strict";
 
+var _ = require( "underscore" );
+var util = require( "util" );
+
 /**
  * 获取jsonp返回对象
  *
@@ -17,18 +20,56 @@
 var getJsonpResult = function( request , result ) {
 
     var callback = request.query.callback;
-    try {
+    result = safeJsonStringify( result );
 
-        result = JSON.stringify( result );
-    }catch( e ) {
+    return util.format( "%s(%s)" , callback , result );
+};
 
-        result = "";
+/**
+ * safe parse json.
+ *
+ * @param thing
+ * @returns {*}
+ */
+var safeJsonParse = function( thing ) {
+
+    if( _.isObject( thing ) ) {
+
+        return thing;
     }
 
-    callback = callback + "(" + ( !!result ? result : "" ) + ")";
+    try {
 
-    return callback;
+        return JSON.parse( thing );
+    }catch( e ) {
+
+        return {};
+    }
+};
+
+/**
+ * safe json stringify
+ *
+ * @param thing
+ * @returns {*}
+ */
+var safeJsonStringify = function( thing ) {
+
+    if( _.isString( thing ) ) {
+
+        return thing;
+    }
+
+    try {
+
+        return JSON.stringify( thing );
+    }catch( e ) {
+
+        return "{}";
+    }
 };
 
 // =================================================================================================
 exports.getJsonpResult = getJsonpResult;
+exports.safeJsonParse = safeJsonParse;
+exports.safeJsonStringify = safeJsonStringify;

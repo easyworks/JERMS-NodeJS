@@ -8,21 +8,72 @@
 "use strict";
 
 /**
- * 计算字符串长度
+ * 清除所有标签
+ *
+ * @param str 需要去除标签的字符串
+ * @returns {string}
+ */
+var clearTags = function( str ) {
+
+    str = str || "";
+    return str.replace( /<\/?[^>]+>/gi , "" );
+};
+
+/**
+ * 检测字符串是否以某字符或字符串开头
+ *
+ * @param str 需要检测的字符串
+ * @param pattern
+ * @returns {boolean}
+ */
+var startWith = function( str , pattern ) {
+
+    str = str || "";
+
+    return str.indexOf( pattern ) === 0;
+};
+
+/**
+ * 检测字符串是否以某字符或字符串结尾
+ *
+ * @param str 需要检测的字符串
+ * @param pattern
+ * @returns {boolean}
+ */
+var endWith = function( str , pattern ) {
+
+    str = str || "";
+
+    var d = str.length - pattern.length;
+
+    return d >= 0 && str.lastIndexOf( pattern ) === d;
+};
+
+/**
+ * 判断字符串是否为英文和数字组成
+ *
+ * @param text 需要检测的字符串
+ * @returns {boolean}
+ **/
+var isEnglishAndNumber = function( text ) {
+
+    text = text || "";
+    var engNumReg = /^[a-zA-Z0-9]+$/;
+
+    return text.match( engNumReg ) != null;
+};
+
+/**
+ * 计算字符串长度(中文算2字节)
  *
  * @param str
  * @returns {number}
  */
 var getLength = function( str ) {
 
-    var length = 0;
+    str = str || "";
 
-    for( var i = 0 , len = str.length; i < len; i++ ) {
-
-        isChineseChar( str , i ) ? length += 2 : length++;
-    }
-
-    return length;
+    return str.replace( /[\u0100-\uffff]/g , "  " ).length;
 };
 
 /**
@@ -37,10 +88,10 @@ var stringToCharArray = function( str ) {
     for( var i = 0 , length = str.length; i < length; i++ ) {
 
         var s = str.substr( i , 1 );
-        chars[ i ] = [ s , this.isCHS( s , i ) ];
+        chars[ i ] = [ s , isChineseChar( s , i ) ];
     }
 
-    this.charsArray = chars;
+    //this.charsArray = chars;
 
     return chars;
 };
@@ -68,29 +119,23 @@ var isChineseChar = function( str , i ) {
 var subChineseString = function( str , start , end ) {
 
     var len = 0;
-    var _str = "";
+    var _str = [];
 
-    this.strToChars( str );
+    var chars = stringToCharArray( str );
 
     for( var i = 0 , length = str.length; i < length; i++ ) {
 
-        if( this.charsArray[ i ][ 1 ] ) {
-
-            len += 2;
-        }else {
-
-            len++;
-        }
+        chars[ i ][ 1 ] ? len += 2 : len++;
 
         if( end < len ) {
 
-            return _str;
+            return _str.join( "" );
         }else if( start < len ) {
 
-            _str += this.charsArray[ i ][ 0 ];
+            _str.push( chars[ i ][ 0 ] );
         }
     }
-    return _str;
+    return _str.join( "" );
 };
 
 /**
@@ -103,10 +148,14 @@ var subChineseString = function( str , start , end ) {
  */
 var subChineseStringBylength = function( str , start , length ) {
 
-    return this.subCHString( str , start , start + length );
+    return subChineseString( str , start , start + length );
 };
 
 // =================================================================================================
+exports.clearTags = clearTags;
+exports.startWith = startWith;
+exports.endWith = endWith;
+exports.isEnglishAndNumber = isEnglishAndNumber;
 exports.getLength = getLength;
 exports.stringToCharArray = stringToCharArray;
 exports.isChineseChar = isChineseChar;
