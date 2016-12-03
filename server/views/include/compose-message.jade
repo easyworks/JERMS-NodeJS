@@ -1,0 +1,20 @@
+#compose-message.modal.fade
+    .modal-dialog
+        .modal-content
+            .modal-header
+                button.close(type="button" data-dismiss="modal" aria-hidden="true") &times;
+                h4.modal-title New Message
+            //-div
+            .modal-header.p-0: input.form-control.input-sm.input-transparent(type="text" placeholder="To...")
+            .modal-header.p-0: input.form-control.input-sm.input-transparent(type="text" placeholder="Subject...")
+            .p-relative
+                .message-options: img(src="/template/images/icon/tile-actions.png" alt="")
+                textarea.message-editor(placeholder="Message...")
+            //-div
+            .modal-footer.m-0
+                button.btn Send
+                button.btn Save
+            //-div
+        //-div
+    //-div
+//-div

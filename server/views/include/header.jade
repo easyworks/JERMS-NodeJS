@@ -1,0 +1,35 @@
+header#header.media
+    a#menu-toggle(href="javascript:void(0);")
+    a.logo.pull-left(href="/home") SUPER ADMIN 1.0
+
+    .media-body.reset
+        #top-menu.media
+            // messages
+            .pull-left.tm-icon
+                a.drawer-toggle(href="javascript:void(0);" data-drawer="messages")
+                    i.sa-top-message
+                    i.n-count.animated 5
+                    span Messages
+                //-a
+            //-div
+            // updates
+            .pull-left.tm-icon
+                a.drawer-toggle(href="javascript:void(0);" data-drawer="notifications")
+                    i.sa-top-updates
+                    i.n-count.animated 9
+                    span Updates
+                //-a
+            //-div
+            // times
+            #time.pull-right
+                span#hours
+                | :
+                span#min
+                | :
+                span#sec
+            //-div
+            // search
+            .media-body: input.main-search(type="text")
+        //-div
+    //-div
+//-header

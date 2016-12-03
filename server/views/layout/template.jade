@@ -1,0 +1,74 @@
+extends ./base
+
+block basevariables
+    - var skinName = "skin-tectile";
+    block variables
+
+block basecss
+    block stylesheet
+
+block basejavascriptlibrary
+    //- moment and calendar
+    //-script(type="text/javascript" src="/widgets/moment/min/moment.min.js")
+    //-script(type="text/javascript" src="/widgets/moment/locale/zh-cn.js")
+    script(type="text/javascript" src="/template/javascript/calendar.min.js")
+    //-script(type="text/javascript" src="/widgets/fullcalendar/dist/fullcalendar.min.js")
+    //-script(type="text/javascript" src="/widgets/fullcalendar/dist/locale-all.js")
+
+    //- WYSIWYG editor(summernote)
+    //-script(type="text/javascript" src="/widgets/summernote/dist/summernote.min.js")
+    script(type="text/javascript" src="/template/javascript/editor.min.js")
+    block javascriptlibrary
+
+block basejavascript
+    block javascript
+
+block basecontent
+
+    //- header
+    include ../include/header
+
+    .clearfix
+
+    section#main.p-relative(role="main")
+
+        include ../include/settings
+
+        //- sidebar
+        aside#sidebar
+            //- sidebar widgets
+            .side-widgets.overflow
+                //- profile menu
+                include ../include/menu/profile
+                .s-widgets
+                    block leftcontent
+                //-div
+            //-div
+            //- side menu
+            include ../include/menu/side
+        //-aside
+
+        // content
+        section#content.container
+
+            //- messages drawer
+            include ../include/drawer/messages
+
+            //- notification drawer
+            include ../include/drawer/notifications
+
+            //- breadcrumb
+            include ../include/breadcrumb
+
+            // page title
+            h4.page-title.b-0= pageTitle || "Home"
+
+            //- content
+            block content
+
+            //- compose
+            include ../include/compose-message
+
+        //-section
+
+    //-section

@@ -1,6 +1,32 @@
 doctype html
+
+//- base variables
+block basevariables
+
 html
-head
-    title= title
-body
-    block content
+    head
+        meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0")
+        meta(name="format-detection" content="telephone=no")
+        meta(name="format-detection" content="email=no")
+        meta(name="format-detection" content="address=no")
+        meta(chatset="utf-8")
+        meta(name="keywords" content=metaKeywords||"")
+        meta(name="description" content=metaDescription||"")
+        title= ( metaTitle || "" ) + " - Super Admin Presponsive Template"
+        //- base css include
+        include ../include/layout/basecss
+        block basecss
+    //-head
+    body(id=skinName)
+
+        block basecontent
+
+        //- base javascript library include
+        include ../include/layout/basejavascript
+        block basejavascriptlibrary
+
+        script(type="text/javascript" src="/template/javascript/functions.js")
+        block basejavascript
+
+    //-body
+//-html
