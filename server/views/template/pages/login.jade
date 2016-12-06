@@ -1,0 +1,57 @@
+extends ../../layout/clearlayout
+
+block variables
+    - var metaTitle = "Login";
+    - var metaKeywords = "";
+    - var metaDescription = "";
+
+block content
+    section#login
+        header
+            h1 SUPER ADMIN
+            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eu risus. Curabitur commodo lorem fringilla enim feugiat commodo sed ac lacus.
+        //-header
+        .clearfix
+
+        // login
+        form#box-login.box.tile.animated.active
+            h2.m-t-0.m-b-15 Login
+            input.login-control.m-b-10(type="text" placeholder="Username or Email Address")
+            input.login-control(type="password" placeholder="Password")
+            .checkbox.m-b-20
+                label
+                    input(type="checkbox")
+                    | Remember Me
+                //-label
+            //-div
+            button.btn.btn-sm.m-r-5 Sign In
+
+            small
+                a.box-switcher(href="javascript:void(0);" data-switch="box-register") Don't have an Account?
+                | &nbsp;or&nbsp;
+                a.box-switcher(href="javascript:void(0);" data-switch="box-reset") Forgot Password?
+            //-small
+        //-form
+
+        // register
+        form#box-register.box.tile.animated
+            h2.m-t-0.m-b-15 Register
+            input.login-control.m-b-10(type="text" placeholder="Full Name")
+            input.login-control.m-b-10(type="text" placeholder="Username")
+            input.login-control.m-b-10(type="email" placeholder="Email Address")
+            input.login-control.m-b-10(type="password" placeholder="Password")
+            input.login-control.m-b-20(type="password" placeholder="Confirm Password")
+            button.btn.btn-sm.m-r-5 Register
+
+            small: a.box-switcher(href="javascript:void(0);" data-switch="box-login") Already have an Account?
+        //-form
+
+        // forgot password
+        form#box-reset.box.tile.animated
+            h2.m-t-0.m-b-15 Reset Password
+            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eu risus. Curabitur commodo lorem fringilla enim feugiat commodo sed ac lacus.
+            input.login-control.m-b-20(type="email" placeholder="Email Address")
+            button.btn.btn-sm.m-r-5 Reset Password
+            small: a.box-switcher(href="javascript:void(0);" data-switch="box-login") Already have an Account?
+        //-form
+    //-section

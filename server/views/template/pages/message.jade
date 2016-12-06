@@ -1,528 +1,138 @@
-doctype html
-html
-    head
-        meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0")
-        meta(name="format-detection" content="telephone=no")
-        meta(name="format-detection" content="email=no")
-        meta(name="format-detection" content="address=no")
-        meta(chatset="utf-8")
-        meta(name="keywords" content="")
-        meta(name="description" content="")
-        title Super Admin Presponsive Template
-        link(type="text/css" rel="stylesheet" href="/widgets/bootstrap/dist/css/bootstrap.min.css")
-        link(type="text/css" rel="stylesheet" href="/widgets/animate.css/animate.min.css")
-        link(type="text/css" rel="stylesheet" href="/widgets/font-awesome/css/font-awesome.min.css")
-        //link(type="text/css" rel="stylesheet" href="/widgets/fullcalendar/dist/fullcalendar.min.css")
-        link(type="text/css" rel="stylesheet" href="/template/css/form.css")
-        link(type="text/css" rel="stylesheet" href="/template/css/calendar.css")
-        link(type="text/css" rel="stylesheet" href="/template/css/style.css")
-        link(type="text/css" rel="stylesheet" href="/template/css/icons.css")
-        link(type="text/css" rel="stylesheet" href="/template/css/generics.css")
-    //-head
-    body#skin-blur-ocean
+extends ../../layout/template
 
-        // header
-        header#header.media
-            a#menu-toggle(href="javascript:void(0);")
-            a.logo.pull-left(href="/home") SUPER ADMIN 1.0
+block variables
+    - var pageTitle = "Messages";
+    - var metaTitle = "Messages";
+    - var metaKeywords = "";
+    - var metaDescription = "";
+    - var currentUrl = "/template/pages/message";
+    - var menuId = 1;
 
-            .media-body.reset
-                #top-menu.media
-                    // messages
-                    .pull-left.tm-icon
-                        a.drawer-toggle(href="javascript:void(0);" data-drawer="messages")
-                            i.sa-top-message
-                            i.n-count.animated 5
-                            span Messages
-                        //-a
-                    //-div
-                    // updates
-                    .pull-left.tm-icon
-                        a.drawer-toggle(href="javascript:void(0);" data-drawer="notifications")
-                            i.sa-top-updates
-                            i.n-count.animated 9
-                            span Updates
-                        //-a
-                    //-div
-                    // times
-                    #time.pull-right
-                        span#hours
-                        | :
-                        span#min
-                        | :
-                        span#sec
-                    //-div
-                    // search
-                    .media-body: input.main-search(type="text")
-                //-div
-            //-div
+block sheetstyle
+
+block javascript-library
+    //- WYSIWYG editor(summernote)
+    //-script(type="text/javascript" src="/widgets/summernote/dist/summernote.min.js")
+    script(type="text/javascript" src="/template/javascript/editor.min.js")
+
+block javascript
+    script(type="text/javascript").
+        $( document ).ready( function() {
+            // editor
+            $( ".message-editor" ).summernote( {
+                 "height"   : 200
+                ,"resizable": false
+                ,"toolbar"  : [
+                    //[ "style"    , [ "style" ] ] // no style button
+                     [ "style"    , [ "bold" , "italic" , "underline" , "clear" ] ]
+                    ,[ "fontsize" , [ "fontsize" ] ]
+                    ,[ "color"    , [ "color" ] ]
+                    ,[ "para"     , [ "ul" , "ol" , "paragraph" ] ]
+                    //,[ "height"   , [ "height" ] ]
+                    ,[ "insert"   , [ "picture" , "link" ] ] // no insert buttons
+                    //,[ "table"    , [ "table" ] ] // no table button
+                    //,[ "help"     , [ "help" ] ] //no help button
+                ]
+            } );
+
+            $( ".message-options" ).click( function() {
+                $( this ).closest( ".modal" ).find( ".note-toolbar" ).toggle();
+            } );
+        } );
+
+block leftcontent
+    include ../../include/leftcontent/combination-2
+
+block content
+    // message list
+    .listview.list-click
+
+        header.media.listview-header
+            ul.pull-right.list-inline.m-t-5.m-b-0
+                li.pagin-value.hidden-xs 35-70
+                li
+                    a.tooltips(href="javascript:void(0);" title="Previous"): i.sa-list-back
+                //-li
+                li
+                    a.tooltips(href="javascript:void(0);" title="Next"): i.sa-list-forwad
+                //-li
+            //-ul
+            ul.pull-left.list-inline.list-mass-actions
+                li.m-r-10
+                    a.tooltips(href="/template/pages/messages" title="Back to Inbox"): i.sa-list-back
+                //-li
+                li
+                    a.tooltips(href="javascript:void(0);" title="Archive"): i.sa-list-archive
+                //-li
+                li
+                    a.tooltips(href="javascript:void(0);" title="Spam"): i.sa-list-spam
+                //-li
+                li.show-on
+                    a.tooltips(href="javascript:void(0);" title="Delete"): i.sa-list-delete
+                //-li
+                li.show-on
+                    a.tooltips(href="javascript:void(0);" title="Move"): i.sa-list-move
+                //-li
+            //-ul
+            .clearfix
         //-header
 
-        .clearfix
+        h2.page-title Re: Regarding website updates
 
-        section#main.p-relative(role="main")
-
-            include ../../include/settings
-
-            // sidebar
-            aside#sidebar
-
-                // sidebar widgets
-                .side-widgets.overflow
-
-                    // profile menu
-                    #profile-menu.text-center.s-widgets.m-b-25.dropdown
-                        a(href="javascript:void(0);" data-toggle="dropdown"): img.profile-pic.animated(src="/template/images/profile-pic.jpg" alt="")
-                        ul.dropdown-menu.profile-menu
-                            li
-                                a(href="javascript:void(0);") My Profile
-                                i.icon.left &#61903;
-                                i.icon.right &#61815;
-                            //-li
-                            li
-                                a(href="javascript:void(0);") Messages
-                                i.icon.left &#61903;
-                                i.icon.right &#61815;
-                            //-li
-                            li
-                                a(href="javascript:void(0);") Settings
-                                i.icon.left &#61903;
-                                i.icon.right &#61815;
-                            //-li
-                            li
-                                a(href="javascript:void(0);") Sign Out
-                                i.icon.left &#61903;
-                                i.icon.right &#61815;
-                            //-li
-                        //-ul
-                        h4.m-0 Malinda Hollaway
-                        | @malinda-h
-                    //-div
-
-                    .s-widgets
-
-                        .m-5: a.btn.btn-sm.btn-block(href="#compose-message" data-toggle="modal") Compose Message
-
-                        .list-group.m-t-10.list-group-flat
-                            a.list-group-item.active(href="javascript:void(0);")
-                                | Inbox
-                                span.badge.badge-trp 23
-                            //-a
-                            a.list-group-item(href="javascript:void(0);")
-                                | Important
-                                span.badge.badge-trp 12
-                            //-a
-                            a.list-group-item(href="javascript:void(0);")
-                                | Starred
-                                span.badge.badge-trp 02
-                            //-a
-                            a.list-group-item(href="javascript:void(0);")
-                                | Drafts
-                                span.badge.badge-trp 05
-                            //-a
-                            a.list-group-item(href="javascript:void(0);") Sent Mail
-                            a.list-group-item(href="javascript:void(0);")
-                                | Spam
-                                span.badge.badge-trp 85
-                            //-a
-                        //-div
-
-                        .list-group.m-t-15.list-group-flat
-                            a.list-group-item(href="javascript:void(0);")
-                                span.message-tag.progress-bar-warning
-                                | Work
-                            //-a
-                            a.list-group-item(href="javascript:void(0);")
-                                span.message-tag.progress-bar-danger
-                                | Personal
-                            //-a
-                            a.list-group-item(href="javascript:void(0);")
-                                span.message-tag.progress-bar-info
-                                | Promotions
-                            //-a
-                            a.list-group-item(href="javascript:void(0);")
-                                span.message-tag.progress-bar-success
-                                | Clients
-                            //-a
-                        //-div
-                    //-div
-
-                //-div
-
-                // side menu
-                ul.list-unstyled.side-menu
-                    li
-                        a.sa-side-home(href="/template/home"): span.menu-item Dashboard
-                    //-li
-                    li
-                        a.sa-side-typography(href="/template/typography"): span.menu-item Typography
-                    //-li
-                    li
-                        a.sa-side-widget(href="/template/widgets"): span.menu-item Widgets
-                    //-li
-                    li
-                        a.sa-side-table(href="/template/tables"): span.menu-item Tables
-                    //-li
-                    li.dropdown
-                        a.sa-side-form(href="javascript:void(0);"): span.menu-item Form
-                        ul.list-unstyled.menu-item
-                            li: a(href="/template/form/elements") Basic Form Elements
-                            li: a(href="/template/form/components") Form Components
-                            li: a(href="/template/form/examples") Form Examples
-                            li: a(href="/template/form/validation") Form Validation
-                        //-ul
-                    //-li
-                    li.dropdown
-                        a.sa-side-ui(href="javascript:void(0);"): span.menu-item User Interface
-                        ul.list-unstyled.menu-item
-                            li: a(href="/template/ui/buttons") Buttons
-                            li: a(href="/template/ui/labels") Labels
-                            li: a(href="/template/ui/image-icons") Images&nbsp;&amp;&nbsp;Icons
-                            li: a(href="/template/ui/alters") Alters
-                            li: a(href="/template/ui/media") Media
-                            li: a(href="/template/ui/components") Components
-                            li: a(href="/template/ui/others") Other
-                        //-ul
-                    //-li
-                    li.dropdown
-                        a.sa-side-photos(href="javascript:void(0);"): span.menu-item Photo Gallery
-                        ul.list-unstyled.menu-item
-                            li: a(href="/template/photo-gallery") Photo Gallery
-                        //-ul
-                    //-li
-                    li
-                        a.sa-side-chart(href="/template/chart"): span.menu-item Charts
-                    //-li
-                    li
-                        a.sa-side-folder(href="/template/file-manager"): span.menu-item File Manager
-                    //-li
-                    li
-                        a.sa-side-calendar(href="/template/calendar"): span.menu-item Calendar
-                    //-li
-                    li.dropdown.active
-                        a.sa-side-page(href="javascript:void(0);"): span.menu-item Pages
-                        ul.list-unstyled.menu-item
-                            li: a(href="/template/pages/list-view") List View
-                            li: a(href="/template/pages/profile-page") Profile Page
-                            li: a.active(href="/template/pages/message") Messages
-                            li: a(href="/template/pages/login") Login
-                            li: a(href="/template/pages/404") 404 Error
-                        //-ul
-                    //-li
+        .media.message-header.o-visible
+            img.pull-left.p-r-0.m-r-10(src="/template/images/profile-pics/6.jpg" width="40" alt="")
+            .pull-right.dropdown.m-t-10
+                a.p-5(href="javascript:void(0);" data-toggle="dropdown") Options
+                ul.dropdown-menu.text-right
+                    li: a(href="javascript:void(0);") Reply
+                    li: a(href="javascript:void(0);") Forward
+                    li: a(href="javascript:void(0);") Mark as Spam
                 //-ul
-
-            //-aside
-
-            // content
-            section#content.container
-
-                // messages drawer
-                #messages.tile.drawer.animated
-                    .listview.narrow
-                        .media
-                            a(href="javascript:void(0);") Send a New Message
-                            span.drawer-close &times;
-                        //-div
-                        .overflow(style="height:254px;")
-                            .media
-                                .pull-left: img(width="40" src="/template/images/profile-pics/1.jpg" alt="")
-                                .media-body.reset
-                                    small.text-muted Nadin Jackson - 2 Hours ago
-                                    a.t-overflow(href="javascript:void(0);") Mauris consectetur urna nec tempor adipiscing. Proin sit amet nisi ligula. Sed eu adipiscing lectus
-                                //-div
-                            //-div
-                            .media
-                                .pull-left: img(width="40" src="/template/images/profile-pics/2.jpg" alt="")
-                                .media-body.reset
-                                    small.text-muted David Villa - 5 Hours ago
-                                    a.t-overflow(href="javascript:void(0);") Suspendisse in purus ut nibh placerat Cras pulvinar euismod nunc quis gravida. Suspendisse pharetra
-                                //-div
-                            //-div
-                            .media
-                                .pull-left: img(width="40" src="/template/images/profile-pics/3.jpg" alt="")
-                                .media-body.reset
-                                    small.text-muted Harris worgon - On 15/12/2013
-                                    a.t-overflow(href="javascript:void(0);") Maecenas venenatis enim condimentum ultrices fringilla. Nulla eget libero rhoncus, bibendum diam eleifend, vulputate mi. Fusce non nibh pulvinar, ornare turpis id
-                                //-div
-                            //-div
-                            .media
-                                .pull-left: img(width="40" src="/template/images/profile-pics/4.jpg" alt="")
-                                .media-body.reset
-                                    small.text-muted Mitch Bradberry - On 14/12/2013
-                                    a.t-overflow(href="javascript:void(0);") Phasellus interdum felis enim, eu bibendum ipsum tristique vitae. Phasellus feugiat massa orci, sed viverra felis aliquet quis. Curabitur vel blandit odio. Vestibulum sagittis quis sem sit amet tristique.
-                                //-div
-                            //-div
-                            .media
-                                .pull-left: img(width="40" src="/template/images/profile-pics/1.jpg" alt="")
-                                .media-body.reset
-                                    small.text-muted Nadin Jackson - On 15/12/2013
-                                    a.t-overflow(href="javascript:void(0);") Ipsum wintoo consectetur urna nec tempor adipiscing. Proin sit amet nisi ligula. Sed eu adipiscing lectus
-                                //-div
-                            //-div
-                            .media
-                                .pull-left: img(width="40" src="/template/images/profile-pics/2.jpg" alt="")
-                                .media-body.reset
-                                    small.text-muted David Villa - On 16/12/2013
-                                    a.t-overflow(href="javascript:void(0);") Suspendisse in purus ut nibh placerat Cras pulvinar euismod nunc quis gravida. Suspendisse pharetra
-                                //-div
-                            //-div
-                            .media
-                                .pull-left: img(width="40" src="/template/images/profile-pics/3.jpg" alt="")
-                                .media-body.reset
-                                    small.text-muted Harris worgon - On 17/12/2013
-                                    a.t-overflow(href="javascript:void(0);") Maecenas venenatis enim condimentum ultrices fringilla. Nulla eget libero rhoncus, bibendum diam eleifend, vulputate mi. Fusce non nibh pulvinar, ornare turpis id
-                                //-div
-                            //-div
-                            .media
-                                .pull-left: img(width="40" src="/template/images/profile-pics/4.jpg" alt="")
-                                .media-body.reset
-                                    small.text-muted Mitch Bradberry - On 18/12/2013
-                                    a.t-overflow(href="javascript:void(0);") Phasellus interdum felis enim, eu bibendum ipsum tristique vitae. Phasellus feugiat massa orci, sed viverra felis aliquet quis. Curabitur vel blandit odio. Vestibulum sagittis quis sem sit amet tristique.
-                                //-div
-                            //-div
-                            .media
-                                .pull-left: img(width="40" src="/template/images/profile-pics/5.jpg" alt="")
-                                .media-body.reset
-                                    small.text-muted Wendy Mitchell - On 19/12/2013
-                                    a.t-overflow(href="javascript:void(0);") Integer a eros dapibus, vehicula quam accumsan, tincidunt purus
-                                //-div
-                            //-div
-                        //-div
-                        .media.text-center.whiter.l-100
-                            a(href="javascript:void(0);"): small View All
-                        //-div
-                    //-div
+            //-div
+            .media-body
+                span.f-bold.pull-left.m-b-5 Malinda Hollaway
+                .clearfix
+                .dropdown
+                    | To&nbsp;
+                    a.underline(href="javascript:void(0);") Me
+                    | &nbsp;on 12th February 2014
                 //-div
+            //-div
+        //-div
 
-                // notification drawer
-                #notifications.tile.drawer.animated
-                    .listview.narrow
-                        .media
-                            a(href="javascript:void(0);") Notification Settings
-                            span.drawer-close &times;
-                        //-div
-                        .overflow(style="height:254px;")
-                            .media
-                                .pull-left: img(height="40" src="/template/images/profile-pics/1.jpg" alt="")
-                                .media-body.reset
-                                    small.text-muted Nadin Jackson - 2 Hours ago
-                                    a.t-overflow(href="javascript:void(0);") Mauris consectetur urna nec tempor adipiscing. Proin sit amet nisi ligula. Sed eu adipiscing lectus
-                                //-div
-                            //-div
-                            .media
-                                .pull-left: img(height="40" src="/template/images/profile-pics/2.jpg" alt="")
-                                .media-body.reset
-                                    small.text-muted David Villa - 5 Hours ago
-                                    a.t-overflow(href="javascript:void(0);") Suspendisse in purus ut nibh placerat Cras pulvinar euismod nunc quis gravida. Suspendisse pharetra
-                                //-div
-                            //-div
-                            .media
-                                .pull-left: img(height="40" src="/template/images/profile-pics/3.jpg" alt="")
-                                .media-body.reset
-                                    small.text-muted Harris worgon - On 15/12/2013
-                                    a.t-overflow(href="javascript:void(0);") Maecenas venenatis enim condimentum ultrices fringilla. Nulla eget libero rhoncus, bibendum diam eleifend, vulputate mi. Fusce non nibh pulvinar, ornare turpis id
-                                //-div
-                            //-div
-                            .media
-                                .pull-left: img(height="40" src="/template/images/profile-pics/4.jpg" alt="")
-                                .media-body.reset
-                                    small.text-muted Mitch Bradberry - On 14/12/2013
-                                    a.t-overflow(href="javascript:void(0);") Phasellus interdum felis enim, eu bibendum ipsum tristique vitae. Phasellus feugiat massa orci, sed viverra felis aliquet quis. Curabitur vel blandit odio. Vestibulum sagittis quis sem sit amet tristique.
-                                //-div
-                            //-div
-                            .media
-                                .pull-left: img(height="40" src="/template/images/profile-pics/1.jpg" alt="")
-                                .media-body.reset
-                                    small.text-muted Nadin Jackson - On 15/12/2013
-                                    a.t-overflow(href="javascript:void(0);") Ipsum wintoo consectetur urna nec tempor adipiscing. Proin sit amet nisi ligula. Sed eu adipiscing lectus
-                                //-div
-                            //-div
-                            .media
-                                .pull-left: img(height="40" src="/template/images/profile-pics/2.jpg" alt="")
-                                .media-body.reset
-                                    small.text-muted David Villa - On 16/12/2013
-                                    a.t-overflow(href="javascript:void(0);") Suspendisse in purus ut nibh placerat Cras pulvinar euismod nunc quis gravida. Suspendisse pharetra
-                                //-div
-                            //-div
-                        //-div
-                        .media.text-center.whiter.l-100
-                            a(href="javascript:void(0);"): small View All
-                        //-div
-                    //-div
-                //-div
+        // content
+        .p-15
+            p Hi Wendy,
+            p Morbi dignissim tortor urna, eget feugiat ipsum rutrum et. Aenean sem nisi, ultricies vel lorem nec, blandit venenatis tellus. Donec accumsan, turpis vel euismod ultrices, massa quam ultricies turpis, non pretium dolor nulla sit amet sem. Ut vel blandit sem, vitae tristique tellus. Suspendisse odio ligula, feugiat eu velit in, mattis pharetra libero. Nunc ac tincidunt nibh. Nullam mauris urna, elementum ac odio et, condimentum suscipit orci. Nulla pellentesque a magna et pellentesque. Suspendisse euismod convallis nisi sed placerat.
+            p Morbi imperdiet tempor velit, sed sagittis ipsum. In gravida, enim ac commodo congue, purus augue faucibus tellus, vel tempus sapien enim eget urna. Mauris molestie fringilla orci, et scelerisque sem dapibus convallis. In ut erat quam. Donec facilisis ipsum ac nulla lobortis.
+            p Regards,<br/> Malinda Hollaway
+        //-div
 
-                // breadcrumb
-                ol.breadcrumb.hidden-xs
-                    li: a(href="javascript:void(0);") Home
-                    li: a(href="javascript:void(0);") Library
-                    li.active Data
-                //-ol
+        hr.whiter
+        // attachement
+        .p-15
+            p
+                | 3 Attachements -&nbsp;
+                a.underline(href="javascript:void(0);") Download all as ZIP
+            //-p
+            a.message-attachement.news.tile(href="javascript:void(0);")
+                img(src="/template/images/filemanager/icon/doc.png" alt="Meeting Agenda.doc")
+                br
+                small.t-overflow Meeting Agenda.doc
+            //-a
+            a.message-attachement.news.tile(href="javascript:void(0);")
+                img(src="/template/images/profile-pics/6.jpg" alt="Profile Picture.jpg")
+                br
+                small.t-overflow Profile Picture.jpg
+            //-a
+            a.message-attachement.news.tile(href="javascript:void(0);")
+                img(src="/template/images/filemanager/icon/pdf.png" alt="Presentation.pdf")
+                br
+                small.t-overflow Presentation.pdf
+            //-a
+        //-div
 
-                // page title
-                h4.page-title.b-0 Messages
+    //-div
 
-                // message list
-                .listview.list-click
-
-                    header.media.listview-header
-                        ul.pull-right.list-inline.m-t-5.m-b-0
-                            li.pagin-value.hidden-xs 35-70
-                            li
-                                a.tooltips(href="javascript:void(0);" title="Previous"): i.sa-list-back
-                            //-li
-                            li
-                                a.tooltips(href="javascript:void(0);" title="Next"): i.sa-list-forwad
-                            //-li
-                        //-ul
-                        ul.pull-left.list-inline.list-mass-actions
-                            li.m-r-10
-                                a.tooltips(href="/template/pages/messages" title="Back to Inbox"): i.sa-list-back
-                            //-li
-                            li
-                                a.tooltips(href="javascript:void(0);" title="Archive"): i.sa-list-archive
-                            //-li
-                            li
-                                a.tooltips(href="javascript:void(0);" title="Spam"): i.sa-list-spam
-                            //-li
-                            li.show-on
-                                a.tooltips(href="javascript:void(0);" title="Delete"): i.sa-list-delete
-                            //-li
-                            li.show-on
-                                a.tooltips(href="javascript:void(0);" title="Move"): i.sa-list-move
-                            //-li
-                        //-ul
-                        .clearfix
-                    //-header
-
-                    h2.page-title Re: Regarding website updates
-
-                    .media.message-header.o-visible
-                        img.pull-left.p-r-0.m-r-10(src="/template/images/profile-pics/6.jpg" width="40" alt="")
-                        .pull-right.dropdown.m-t-10
-                            a.p-5(href="javascript:void(0);" data-toggle="dropdown") Options
-                            ul.dropdown-menu.text-right
-                                li: a(href="javascript:void(0);") Reply
-                                li: a(href="javascript:void(0);") Forward
-                                li: a(href="javascript:void(0);") Mark as Spam
-                            //-ul
-                        //-div
-                        .media-body
-                            span.f-bold.pull-left.m-b-5 Malinda Hollaway
-                            .clearfix
-                            .dropdown
-                                | To&nbsp;
-                                a.underline(href="javascript:void(0);") Me
-                                | &nbsp;on 12th February 2014
-                            //-div
-                        //-div
-                    //-div
-
-                    // content
-                    .p-15
-                        p Hi Wendy,
-                        p Morbi dignissim tortor urna, eget feugiat ipsum rutrum et. Aenean sem nisi, ultricies vel lorem nec, blandit venenatis tellus. Donec accumsan, turpis vel euismod ultrices, massa quam ultricies turpis, non pretium dolor nulla sit amet sem. Ut vel blandit sem, vitae tristique tellus. Suspendisse odio ligula, feugiat eu velit in, mattis pharetra libero. Nunc ac tincidunt nibh. Nullam mauris urna, elementum ac odio et, condimentum suscipit orci. Nulla pellentesque a magna et pellentesque. Suspendisse euismod convallis nisi sed placerat.
-                        p Morbi imperdiet tempor velit, sed sagittis ipsum. In gravida, enim ac commodo congue, purus augue faucibus tellus, vel tempus sapien enim eget urna. Mauris molestie fringilla orci, et scelerisque sem dapibus convallis. In ut erat quam. Donec facilisis ipsum ac nulla lobortis.
-                        p Regards,<br/> Malinda Hollaway
-                    //-div
-
-                    hr.whiter
-                    // attachement
-                    .p-15
-                        p
-                            | 3 Attachements -&nbsp;
-                            a.underline(href="javascript:void(0);") Download all as ZIP
-                        //-p
-                        a.message-attachement.news.tile(href="javascript:void(0);")
-                            img(src="/template/images/filemanager/icon/doc.png" alt="Meeting Agenda.doc")
-                            br
-                            small.t-overflow Meeting Agenda.doc
-                        //-a
-                        a.message-attachement.news.tile(href="javascript:void(0);")
-                            img(src="/template/images/profile-pics/6.jpg" alt="Profile Picture.jpg")
-                            br
-                            small.t-overflow Profile Picture.jpg
-                        //-a
-                        a.message-attachement.news.tile(href="javascript:void(0);")
-                            img(src="/template/images/filemanager/icon/pdf.png" alt="Presentation.pdf")
-                            br
-                            small.t-overflow Presentation.pdf
-                        //-a
-                    //-div
-
-                //-div
-
-                // compose
-                #compose-message.modal.fade
-                    .modal-dialog
-                        .modal-content
-                            .modal-header
-                                button.close(type="button" data-dismiss="modal" aria-hidden="true") &times;
-                                h4.modal-title New Message
-                            //-div
-                            .modal-header.p-0: input.form-control.input-sm.input-transparent(type="text" placeholder="To...")
-                            .modal-header.p-0: input.form-control.input-sm.input-transparent(type="text" placeholder="Subject...")
-                            .p-relative
-                                .message-options: img(src="/template/images/icon/tile-actions.png" alt="")
-                                textarea.message-editor(placeholder="Message...")
-                            //-div
-                            .modal-footer.m-0
-                                button.btn Send
-                                button.btn Save
-                            //-div
-                        //-div
-                    //-div
-                //-div
-
-            //-section
-
-        //-section
-
-        //- javascript libraries
-        script(type="text/javascript" src="/widgets/jquery/dist/jquery.min.js")
-        script(type="text/javascript" src="/widgets/bootstrap/dist/js/bootstrap.min.js")
-        script(type="text/javascript" src="/widgets/iCheck/icheck.min.js")
-
-        // moment and calendar
-        script(type="text/javascript" src="/widgets/moment/min/moment.min.js")
-        //script(type="text/javascript" src="/widgets/moment/locale/zh-cn.js")
-        script(type="text/javascript" src="/widgets/fullcalendar/dist/fullcalendar.min.js")
-        script(type="text/javascript" src="/widgets/fullcalendar/dist/locale-all.js")
-
-        // color picker
-        script(type="text/javascript" src="/widgets/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js")
-
-        // custom scrolbar
-        //script(type="text/javascript" src="/widgets/jquery.nicescroll/dist/jquery.nicescroll.min.js")
-        script(type="text/javascript" src="/template/javascript/scroll.min.js")
-
-        // WYSIWYG editor(summernote)
-        //-script(type="text/javascript" src="/widgets/summernote/dist/summernote.min.js")
-        script(type="text/javascript" src="/template/javascript/editor.min.js")
-
-        script(type="text/javascript" src="/template/javascript/functions.js")
-
-        script(type="text/javascript").
-            $( document ).ready( function() {
-                //Editor
-                $( ".message-editor" ).summernote( {
-                     "height"   : 200
-                    ,"resizable": false
-                    ,"toolbar"  : [
-                      // [ "style"    , [ "style" ] ] // no style button
-                         [ "style"    , [ "bold" , "italic" , "underline" , "clear" ] ]
-                        ,[ "fontsize" , [ "fontsize" ] ]
-                        ,[ "color"    , [ "color" ] ]
-                        ,[ "para"     , [ "ul" , "ol" , "paragraph" ] ]
-                      //,[ "height"   , [ "height" ] ]
-                        ,[ "insert"   , [ "picture" , "link" ] ] // no insert buttons
-                      //,[ "table"    , [ "table" ] ] // no table button
-                      //,[ "help"     , [ "help" ] ] //no help button
-                    ]
-                } );
-
-                $( ".message-options" ).click( function() {
-                    $( this ).closest( ".modal" ).find( ".note-toolbar" ).toggle();
-                } );
-            } );
-    //-body
-//-html
+    // compose
+    include ../../include/compose-message
