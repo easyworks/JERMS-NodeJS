@@ -259,17 +259,17 @@ $( document ).ready( function() {
     /* --------------------------------------------------------
 	RSS Feed widget
     -----------------------------------------------------------*/
-    /*(function(){
-	if($("#news-feed")[0]){
-	    $("#news-feed").FeedEk({
-		FeedUrl: "http://rss.cnn.com/rss/edition.rss",
-		MaxCount: 5,
-		ShowDesc: false,
-		ShowPubDate: true,
-		DescCharacterLimit: 0
-	    });
-	}
-    })();*/
+    ( function() {
+        var newsFeed = $( "#news-feed" );
+        //noinspection JSUnresolvedFunction
+        !!newsFeed.length && newsFeed.FeedEk( {
+             "FeedUrl"           : "http://rss.cnn.com/rss/edition.rss"
+            ,"MaxCount"          : 5
+            ,"ShowDesc"          : false
+            ,"ShowPubDate"       : true
+            ,"DescCharacterLimit": 0
+        } );
+    } )();
 
     /* --------------------------------------------------------
 	Chat
