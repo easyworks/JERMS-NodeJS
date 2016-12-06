@@ -1,7 +1,7 @@
 doctype html
 
 //- base variables
-block basevariables
+block base-variables
 
 html
     head
@@ -15,18 +15,18 @@ html
         title= ( metaTitle || "" ) + " - Super Admin Presponsive Template"
         //- base css include
         include ../include/layout/basecss
-        block basecss
+        block base-css
     //-head
     body(id=skinName)
 
-        block basecontent
+        block base-content
 
         //- base javascript library include
         include ../include/layout/basejavascript
-        block basejavascriptlibrary
+        block base-javascript-library
 
         script(type="text/javascript" src="/template/javascript/functions.js")
-        block basejavascript
+        block base-javascript
 
     //-body
 //-html

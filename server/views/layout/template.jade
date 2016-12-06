@@ -1,37 +1,35 @@
 extends ./base
 
-block basevariables
+block base-variables
     - var skinName = "skin-tectile";
     block variables
 
-block basecss
+block base-css
     block stylesheet
 
-block basejavascriptlibrary
+block base-javascript-library
     //- moment and calendar
     //-script(type="text/javascript" src="/widgets/moment/min/moment.min.js")
     //-script(type="text/javascript" src="/widgets/moment/locale/zh-cn.js")
     script(type="text/javascript" src="/template/javascript/calendar.min.js")
     //-script(type="text/javascript" src="/widgets/fullcalendar/dist/fullcalendar.min.js")
     //-script(type="text/javascript" src="/widgets/fullcalendar/dist/locale-all.js")
+    //- FeedEk
+    script(type="text/javascript" src="/widgets/FeedEk/js/FeedEk.js")
+    //script(type="text/javascript" src="/template/javascript/feeds.min.js")
 
-    //- WYSIWYG editor(summernote)
-    //-script(type="text/javascript" src="/widgets/summernote/dist/summernote.min.js")
-    script(type="text/javascript" src="/template/javascript/editor.min.js")
-    block javascriptlibrary
+    block javascript-library
 
-block basejavascript
+block base-javascript
     block javascript
 
-block basecontent
-
+block base-content
     //- header
     include ../include/header
 
     .clearfix
 
     section#main.p-relative(role="main")
-
         include ../include/settings
 
         //- sidebar
@@ -50,7 +48,6 @@ block basecontent
 
         // content
         section#content.container
-
             //- messages drawer
             include ../include/drawer/messages
 
@@ -65,10 +62,5 @@ block basecontent
 
             //- content
             block content
-
-            //- compose
-            include ../include/compose-message
-
         //-section
-
     //-section

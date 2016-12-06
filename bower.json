@@ -33,6 +33,7 @@
     "jquery.nicescroll": "nicescroll#^3.6.8",
     "jquery-ui": "^1.12.1",
     "bootstrap-colorpicker": "^2.3.6",
-    "summernote": "^0.8.2"
+    "summernote": "^0.8.2",
+    "FeedEk": "^3.0.0"
   }
 }
