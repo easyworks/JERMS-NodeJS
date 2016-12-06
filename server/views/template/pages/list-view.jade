@@ -1,0 +1,227 @@
+extends ../../layout/template
+
+block variables
+    - var pageTitle = "List Views";
+    - var metaTitle = "List Views";
+    - var metaKeywords = "";
+    - var metaDescription = "";
+    - var currentUrl = "/template/pages/list-view";
+    - var menuId = 1;
+
+block sheetstyle
+
+block javascript-library
+
+block javascript
+
+block leftcontent
+    include ../../include/leftcontent/combination-1
+
+block content
+    // message list
+    .listview.list-container
+
+        header.media.listview-header
+            input.pull-left.list-parent-check(type="checkbox" value="")
+            ul.pull-right.list-inline.m-t-5.m-b-0
+                li.pagin-value.hidden-xs 35-70
+                li
+                    a.tooltips(href="javascript:void(0);" title="Previous"): i.sa-list-back
+                //-li
+                li
+                    a.tooltips(href="javascript:void(0);" title="Next"): i.sa-list-forwad
+                //-li
+            //-ul
+            ul.pull-left.list-inline.list-mass-actions
+                li
+                    a.tooltips(href="#compose-message" data-toggle="modal" title="Add"): i.sa-list-add
+                //-li
+                li
+                    a.tooltips(href="javascript:void(0);" title="Refresh"): i.sa-list-refresh
+                //-li
+                li.show-on.hidden
+                    a.tooltips(href="javascript:void(0);" title="Move"): i.sa-list-move
+                //-li
+                li.show-on.hidden
+                    a.tooltips(href="javascript:void(0);" title="Delete"): i.sa-list-delete
+                //-li
+            //-ul
+            input.pull-right.message-search.input-sm.col-md-4(type="text" placeholder="Search...")
+            .clearfix
+        //-header
+
+        .media
+            input.pull-left.list-check(type="checkbox")
+            .media-body
+                | Per an error perpetua, fierent fastidii recteque ad pro. Mei id brute intellegam
+                .list-options
+                    button.btn.btn-sm(type="button") View
+                    button.btn.btn-sm(type="button") Delete
+                //-div
+            //-div
+        //-div
+        .media
+            input.pull-left.list-check(type="checkbox")
+            .media-body
+                | Nulla vel metus scelerisque ante sollicitudin commodo purus odio
+                .clearfix
+                .attrs Date Created: 09/06/1988
+                .attrs.block Members: 78954
+                .attrs.block Published: No
+                .list-options
+                    button.btn.btn-sm(type="button") View
+                    button.btn.btn-sm(type="button") Delete
+                //-div
+            //-div
+        //-div
+        .media
+            input.pull-left.list-check(type="checkbox")
+            .media-body
+                | Per an error perpetua, fierent fastidii recteque ad pro. Mei id brute intellegam
+                .clearfix
+                small An erant explicari salutatus duo, sumo doming delicata in cum. Eos at augue viderer principes
+                br
+                .attrs Date Created: 25/12/2012
+                .attrs.block Members: 3978
+                .attrs.block Published: Yes
+            //-div
+        //-div
+        .media
+            input.pull-left.list-check(type="checkbox")
+            .media-body
+                | Inermis patrioque temporibus at ius, eos ei case partem blandit
+                br
+                small An erant explicari salutatus duo, sumo doming delicata in cum. Eos at augue viderer principes
+                .list-options
+                    button.btn.btn-sm(type="button") View
+                    button.btn.btn-sm(type="button") Delete
+                //-div
+            //-div
+        //-div
+        .media
+            input.pull-left.list-check(type="checkbox")
+            .media-body
+                | Eam utamur ceteros ei, per no feugiat saperet omittantur. Qui et erant nonumes abhorreant, eirmod omnium.
+                .clearfix
+                small Lorem ipsum dolor sit amet, per cu solet docendi
+                .list-options
+                    button.btn.btn-sm(type="button") View
+                    button.btn.btn-sm(type="button") Delete
+                //-div
+            //-div
+        //-div
+        .media
+            input.pull-left.list-check(type="checkbox")
+            img.media-object.pull-left(src="/template/images/profile-pics/1.jpg" width="45" alt="")
+            .media-body
+                | Nulla vel metus scelerisque ante sollicitudin commodo purus odio.
+                .clearfix
+                small Lorem ipsum dolor sit amet, per cu solet docendi
+                .list-options
+                    button.btn.btn-sm(type="button") View
+                    button.btn.btn-sm(type="button") Delete
+                //-div
+            //-div
+        //-div
+        .media
+            input.pull-left.list-check(type="checkbox")
+            img.media-object.pull-left(src="/template/images/profile-pics/5.jpg" width="45" alt="")
+            .media-body
+                | Per an error perpetua, fierent fastidii recteque ad pro. Mei id brute intellegam, te vix ipsum quando facilisis, admodum eleifend quaerendum sed cu. Sale aperiam oportere has an, mea et commodo alterum perpetua fierent fastidii recteque ad pro. Mei id brute intellegam, vim ea invidunt efficiendi. Copiosae definitiones est ex, no oportere urbanitas elaboraret qui, et dicit sadipscing vel.
+                .list-options
+                    button.btn.btn-sm(type="button") View
+                    button.btn.btn-sm(type="button") Delete
+                //-div
+            //-div
+        //-div
+        .media
+            input.pull-left.list-check(type="checkbox")
+            img.media-object.pull-left(src="/template/images/profile-pics/2.jpg" width="45" alt="")
+            .media-body
+                | Per an error perpetua, fierent fastidii recteque ad pro. Mei id brute intellegam
+                .clearfix
+                small An erant explicari salutatus duo, sumo doming delicata in cum. Eos at augue viderer principes
+                br
+                .attrs.block Date Created: 01/01/2013
+                .attrs.block Members: 17580
+                .attrs.block Published: Yes
+                .list-options
+                    button.btn.btn-sm(type="button") View
+                    button.btn.btn-sm(type="button") Delete
+                //-div
+            //-div
+        //-div
+        .media
+            input.pull-left.list-check(type="checkbox")
+            .media-body
+                | Wel ea elit iuvaret. Mea labitur definitiones ex, id atqui accusata vix, vim nibh mandamus ad
+                .clearfix
+                small Wendy create ipsum dolor sit amet, per cu solet docendi ntoenstion
+                .list-options
+                    button.btn.btn-sm(type="button") View
+                    button.btn.btn-sm(type="button") Delete
+                //-div
+            //-div
+        //-div
+        .media
+            input.pull-left.list-check(type="checkbox")
+            .media-body
+                | Per an error perpetua, fierent fastidii recteque ad pro. Mei id brute intellegam
+                .clearfix
+                small An erant explicari salutatus duo, sumo doming delicata in cum. Eos at augue viderer principes
+                br
+                .attrs.block Date Created: 18/06/2013
+                .attrs.block Members: 610
+                .attrs.block Published: No
+                .list-options
+                    button.btn.btn-sm(type="button") View
+                    button.btn.btn-sm(type="button") Delete
+                //-div
+            //-div
+        //-div
+        .media
+            input.pull-left.list-check(type="checkbox")
+            .media-body
+                | Per an error perpetua, fierent fastidii recteque ad pro. Mei id brute intellegam
+                .list-options
+                    button.btn.btn-sm(type="button") View
+                    button.btn.btn-sm(type="button") Delete
+                //-div
+            //-div
+        //-div
+        .media
+            input.pull-left.list-check(type="checkbox")
+            .media-body
+                | Nulla vel metus scelerisque ante sollicitudin commodo purus odio
+                .clearfix
+                .attrs.block Date Created: 09/06/1988
+                .attrs.block Members: 78954
+                .attrs.block Published: No
+                .list-options
+                    button.btn.btn-sm(type="button") View
+                    button.btn.btn-sm(type="button") Delete
+                //-div
+            //-div
+        //-div
+
+        //-pagination
+        .media.text-center
+            ul.pagination
+                li
+                    a(href="javascript:void(0);"): i.fa.fa-angle-left
+                //-li
+                li.active: a(href="javascript:void(0);") 1
+                li: a(href="javascript:void(0);") 2
+                li: a(href="javascript:void(0);") 3
+                li: a(href="javascript:void(0);") 4
+                li: a(href="javascript:void(0);") 5
+                li: a(href="javascript:void(0);") 6
+                li: a(href="javascript:void(0);") 7
+                li.disabled: a(href="javascript:void(0);") ...
+                li
+                    a(href="javascript:void(0);"): i.fa.fa-angle-right
+                //-li
+            //-ul
+        //-div
+
+    //-div

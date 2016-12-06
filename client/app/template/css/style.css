@@ -823,8 +823,13 @@ hr {
     background-color :rgba(0, 0, 0, 0.07);
 }
 
+.listview .media .media-object.pull-left {
+    padding-right :0;
+    margin-right  :10px;
+}
+
 .listview .media .media-body {
-    padding-top :1px;
+    padding-top   :1px;
 }
 
 .listview .media:last-child {
@@ -2347,3 +2352,8 @@ a.list-group-item.active > .badge,
 }
 
 .media-body.reset {width:auto; display:block;}
+#news-feed {}
+#news-feed .feedEkList {padding-left:0; list-style:none;}
+#news-feed .feedEkList li {margin-bottom:10px;}
+#news-feed .feedEkList li div {display:inline;}
+#news-feed .feedEkList li .itemDate {margin-left:10px; font-size:85%; color:#bbb;}
